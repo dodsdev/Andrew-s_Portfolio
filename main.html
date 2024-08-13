@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Designer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <style>
+        /* Same CSS as before */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #0d1117;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #f39c12;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #ffffff;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2; /* Ensure content is above video */
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            opacity: 0.7; /* Adjust transparency if needed */
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+
+        .hero a {
+            color: #fff;
+            background-color: #f39c12;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .hero a:hover {
+            background-color: #e67e22;
+        }
+
+        section {
+            padding: 100px 20px;
+            text-align: center;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        h2 {
+            margin-bottom: 40px;
+            font-size: 3em;
+            color: #333;
+        }
+
+        .portfolio {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-item {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .lightbox:target {
+            display: flex;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #ffffff;
+            font-size: 2em;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .lightbox-close:hover {
+            color: #f39c12;
+        }
+
+        .about,
+        .services,
+        .testimonials,
+        .contact {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f9;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .services,
+        .testimonials {
+            background-color: #ffffff;
+        }
+
+        .testimonials p {
+            font-style: italic;
+            margin: 20px 0;
+            font-size: 1.2em;
+        }
+
+        footer {
+            background-color: #0d1117;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.9em;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            background-color: #f9f9f9;
+        }
+
+        .contact-form button {
+            background-color: #f39c12;
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form button:hover {
+            background-color: #e67e22;
+        }
+
+        .error {
+            border-color: red;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Logo Design, Andrew's Portfolio</h1>
+        <nav>
+            <ul>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <!-- Video Background -->
+        <video autoplay muted loop id="heroVideo" class="hero-video">
+            <source src="91592-628463727_small.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="hero-content">
+            <h1>Designing Iconic Logos</h1>
+            <p>Transforming Brands Through Creativity</p>
+            <a href="#portfolio">Explore My Work</a>
+        </div>
+    </section>
+
+    <section id="portfolio" class="portfolio">
+        <h2>Portfolio</h2>
+        <div class="portfolio-item">
+            <a href="#lightbox1" data-image="https://via.placeholder.com/800x600">
+                <img src="https://via.placeholder.com/400x300" alt="Logo 1">
+            </a>
+        </div>
+        <div class="portfolio-item">
+            <a href="#lightbox2" data-image="https://via.placeholder.com/800x600">
+                <img src="https://via.placeholder.com/400x300" alt="Logo 2">
+            </a>
+        </div>
+        <div class="portfolio-item">
+            <a href="#lightbox3" data-image="https://via.placeholder.com/800x600">
+                <img src="https://via.placeholder.com/400x300" alt="Logo 3">
+            </a>
+        </div>
+        <div class="portfolio-item">
+            <a href="#lightbox1" data-image="https://via.placeholder.com/800x600">
+                <img src="https://via.placeholder.com/400x300" alt="Logo 4">
+            </a>
+        </div>
+        <div class="portfolio-item">
+            <a href="#lightbox2" data-image="https://via.placeholder.com/800x600">
+                <img src="https://via.placeholder.com/400x300" alt="Logo 5">
+            </a>
+        </div>
+        <div class="portfolio-item">
+            <a href="#lightbox3" data-image="https://via.placeholder.com/800x600">
+                <img src="https://via.placeholder.com/400x300" alt="Logo 6">
+            </a>
+        </div>
+        <div class="portfolio-item">
+            <a href="#lightbox3" data-image="https://via.placeholder.com/800x600">
+                <img src="https://via.placeholder.com/400x300" alt="Logo 7">
+            </a>
+        </div>
+        <!-- Add more portfolio items as needed -->
+    </section>
+
+    <!-- Lightbox Sections -->
+    <div id="lightbox1" class="lightbox">
+        <span class="lightbox-close" onclick="window.location.hash = '';">&times;</span>
+        <img src="https://via.placeholder.com/800x600" alt="Logo 1">
+    </div>
+    <div id="lightbox2" class="lightbox">
+        <span class="lightbox-close" onclick="window.location.hash = '';">&times;</span>
+        <img src="https://via.placeholder.com/800x600" alt="Logo 2">
+    </div>
+    <div id="lightbox3" class="lightbox">
+        <span class="lightbox-close" onclick="window.location.hash = '';">&times;</span>
+        <img src="https://via.placeholder.com/800x600" alt="Logo 3">
+    </div>
+    <div id="lightbox1" class="lightbox">
+        <span class="lightbox-close" onclick="window.location.hash = '';">&times;</span>
+        <img src="https://via.placeholder.com/800x600" alt="Logo 4">
+    </div>
+    <div id="lightbox2" class="lightbox">
+        <span class="lightbox-close" onclick="window.location.hash = '';">&times;</span>
+        <img src="https://via.placeholder.com/800x600" alt="Logo 5">
+    </div>
+    <div id="lightbox3" class="lightbox">
+        <span class="lightbox-close" onclick="window.location.hash = '';">&times;</span>
+        <img src="https://via.placeholder.com/800x600" alt="Logo 6">
+    </div>
+    <div id="lightbox3" class="lightbox">
+        <span class="lightbox-close" onclick="window.location.hash = '';">&times;</span>
+        <img src="https://via.placeholder.com/800x600" alt="Logo 7">
+    </div>
+
+    <section id="about" class="about">
+        <h2>About Me</h2>
+        <p>Hello! I'm Andrew, a passionate logo designer with a keen eye for detail and creativity. My goal is to create unique and impactful logos that help brands stand out and leave a lasting impression.</p>
+    </section>
+
+    <section id="services" class="services">
+        <h2>Services</h2>
+        <p>I offer a range of services including custom logo design, brand identity packages, and more. My services are tailored to meet your specific needs and ensure your brand stands out in the market. Contact me for a personalized quote and let's discuss how I can help elevate your brand.</p>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <h2>Testimonials</h2>
+        <p>"Andrew did an amazing job creating our new logo. Highly recommend!" - Client A</p>
+        <p>"A pleasure to work with, very professional and talented." - Client B</p>
+        <p>"Excellent creativity and attention to detail. Our logo looks fantastic!" - Client C</p>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-form">
+            <form id="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Andrew. All rights reserved.</p>
+    </footer>
+
+    <script>
+        emailjs.init("1Louy701aFXIKNTLS");
+
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            
+            emailjs.sendForm('service_i43rdo8', 'template_s6e9swh', form)
+                .then(function(response) {
+                    alert('Message sent successfully!');
+                    form.reset();
+                }, function(error) {
+                    alert('Failed to send message. Please try again.');
+                });
+        });
+
+        document.querySelectorAll('.portfolio-item a').forEach(item => {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+                const lightboxId = this.getAttribute('href');
+                document.querySelector(lightboxId).style.display = 'flex';
+            });
+        });
+
+        document.querySelectorAll('.lightbox-close').forEach(closeBtn => {
+            closeBtn.addEventListener('click', function() {
+                this.parentElement.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+
+</html>
