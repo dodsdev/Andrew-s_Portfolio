@@ -9,8 +9,7 @@
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <style>
         /* Same CSS as before */
-        /* Responsive and General Styles */
-                body {
+        body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
@@ -63,24 +62,36 @@
             align-items: center;
             text-align: center;
             color: #ffffff;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+            z-index: 1;
         }
 
-        .hero video {
+        .hero-content {
+            position: relative;
+            z-index: 2; /* Ensure content is above video */
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-video {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -1;
+            z-index: 1;
+            opacity: 0.7; /* Adjust transparency if needed */
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            padding: 0 20px;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+            z-index: 1;
         }
 
         .hero h1 {
@@ -262,7 +273,6 @@
                 font-size: 1.2em;
             }
         }
-
     </style>
 </head>
 
