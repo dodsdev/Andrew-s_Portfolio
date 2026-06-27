@@ -1,0 +1,469 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Dynamic font families based on document direction */
+html[dir="ltr"], html[dir="ltr"] body {
+  font-family: 'Outfit', sans-serif;
+  --font-sans: 'Outfit', sans-serif;
+}
+
+html[dir="rtl"], html[dir="rtl"] body {
+  font-family: 'Cairo', sans-serif;
+  --font-sans: 'Cairo', sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0F19;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1E293B;
+  border-radius: 4px;
+  border: 2px solid #0B0F19;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+/* Base Styles */
+body {
+  background-color: #0B0F19;
+  color: #F8FAFC;
+  overflow-x: hidden;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Utilities */
+.bg-grid-pattern {
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+}
+
+.gold-glow {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+.gold-glow-hover:hover {
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+}
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}
+
+.text-glow-subtle {
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+}
+
+/* Premium Glassmorphic Panels */
+.glass-panel {
+  background: rgba(18, 24, 37, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.glass-panel-gold {
+  background: rgba(18, 24, 37, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.12);
+}
+
+.glass-panel-gold-hover:hover {
+  border-color: rgba(212, 175, 55, 0.35);
+  box-shadow: 0 15px 30px -10px rgba(212, 175, 55, 0.15);
+  background: rgba(18, 24, 37, 0.75);
+}
+
+/* Image Hover Zoom Container */
+.gallery-zoom-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-zoom-image {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gallery-zoom-container:hover .gallery-zoom-image {
+  transform: scale(1.08);
+}
+
+/* Gold Gradient text helper */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #F59E0B 0%, #D4AF37 50%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Booking Modal Animations */
+@keyframes modal-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-content-in {
+  from { opacity: 0; transform: scale(0.95) translateY(15px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-backdrop-fade {
+  animation: modal-backdrop-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modal-content-fade {
+  animation: modal-content-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Shimmer animation for loading states or button glows */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-effect {
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.15), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite;
+}
+
+/* Language transitions helper */
+.lang-transition {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Radar Sweep Animation for Neo Dark Map */
+@keyframes radar-sweep {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-radar-sweep {
+  animation: radar-sweep 6s linear infinite;
+  transform-origin: 200px 200px;
+}
+
+/* Premium Dark Mode Map Styling */
+.dark-map {
+  filter: invert(90%) hue-rotate(180deg) grayscale(100%) contrast(120%);
+  opacity: 0.8;
+  transition: all 0.5s ease;
+}
+
+.dark-map:hover {
+  opacity: 1;
+  filter: invert(90%) hue-rotate(180deg) grayscale(30%) contrast(110%);
+}
+
+/* Hide scrollbars for mobile horizontal sliders */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
+/* ==============================================
+   FLOATING WHATSAPP BUTTON (FAB)
+   ============================================== */
+.whatsapp-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 30px;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  z-index: 39;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.whatsapp-fab:hover {
+  transform: scale(1.12);
+  box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+}
+
+.whatsapp-fab:active {
+  transform: scale(0.95);
+}
+
+/* WhatsApp FAB pulse ring animation */
+@keyframes whatsapp-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+.whatsapp-fab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: whatsapp-pulse 2s infinite;
+}
+
+/* RTL positioning for WhatsApp FAB */
+[dir="rtl"] .whatsapp-fab {
+  right: auto;
+  left: 24px;
+}
+
+/* WhatsApp social icon hover */
+.social-whatsapp:hover {
+  color: #25D366 !important;
+  border-color: rgba(37, 211, 102, 0.5) !important;
+}
+
+
+/* ==============================================
+   RTL / ARABIC SPECIFIC FIXES
+   ============================================== */
+
+/* Arabic text tends to be wider — adjust letter spacing */
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3 {
+  letter-spacing: 0 !important;
+  word-spacing: 2px;
+}
+
+[dir="rtl"] .tracking-wider,
+[dir="rtl"] .tracking-widest {
+  letter-spacing: 0 !important;
+}
+
+/* Fix select dropdown arrow position in RTL */
+[dir="rtl"] select {
+  text-align: right;
+}
+
+/* Fix chevron direction in RTL service cards */
+[dir="rtl"] .fa-chevron-right {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .fa-chevron-left {
+  transform: scaleX(-1);
+}
+
+/* Fix arrow icons in gallery */
+[dir="rtl"] .fa-arrow-right {
+  transform: scaleX(-1);
+}
+
+/* Fix booking modal step line direction */
+[dir="rtl"] #step-indicators-container {
+  direction: rtl;
+}
+
+/* Adjust text alignment in booking summary for RTL */
+[dir="rtl"] #summary-service-val {
+  text-align: left;
+}
+
+/* Fix social links panel for RTL */
+[dir="rtl"] .social-links-panel {
+  flex-direction: row-reverse;
+}
+
+
+/* ==============================================
+   MOBILE RESPONSIVENESS IMPROVEMENTS
+   ============================================== */
+
+/* Safe area padding for notched phones */
+@supports(padding: env(safe-area-inset-bottom)) {
+  .whatsapp-fab {
+    bottom: calc(24px + env(safe-area-inset-bottom));
+  }
+  
+  footer {
+    padding-bottom: calc(2.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* Service tabs horizontal scroll on mobile */
+@media (max-width: 640px) {
+  /* Service tab container scrollable */
+  .service-tabs-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 4px;
+  }
+  
+  .service-tabs-scroll::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .service-tabs-scroll .service-tab {
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: max-content;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* Improve hero text sizing on small screens */
+  .hero-title-mobile {
+    font-size: 2rem !important;
+    line-height: 1.15 !important;
+  }
+
+  /* Service cards: reduce height on mobile */
+  .service-card-mobile {
+    height: auto !important;
+    min-height: 280px;
+  }
+
+  /* Gallery grid: 1 column on very small screens */
+  .gallery-grid-mobile {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Contact section map minimum height */
+  .map-container-mobile {
+    min-height: 280px !important;
+  }
+
+  /* Social links panel: stack on very small */
+  .social-panel-mobile {
+    flex-direction: column !important;
+    gap: 12px !important;
+    text-align: center;
+  }
+
+  .social-panel-mobile .flex {
+    justify-content: center;
+  }
+
+  /* Footer: center everything on mobile */
+  footer .flex {
+    text-align: center;
+  }
+
+  /* Date grid: better sizing */
+  #dates-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  /* Time slots: 3 columns on mobile */
+  .time-slots-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  /* Touch-friendly minimum sizes */
+  button, a, select, input {
+    min-height: 44px;
+  }
+
+  /* Modal improvements for mobile */
+  .modal-mobile-fullscreen {
+    border-radius: 0 !important;
+    max-height: 100vh;
+    height: 100%;
+    max-width: 100% !important;
+    margin: 0;
+  }
+
+  .modal-body-scroll {
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Booking summary on mobile: stack vertically */
+  .booking-summary-mobile {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Features strip: add spacing */
+  .features-grid-mobile > div {
+    padding: 12px !important;
+  }
+
+  /* Map badge overlay: full width on mobile */
+  .map-badge-mobile {
+    left: 8px !important;
+    right: 8px !important;
+    bottom: 8px !important;
+  }
+}
+
+/* Medium mobile screens */
+@media (max-width: 480px) {
+  /* Even smaller hero title */
+  h1 {
+    font-size: 1.75rem !important;
+  }
+
+  /* Reduce modal padding */
+  .modal-content-padding {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Date grid: 3.5 columns with scroll */
+  #dates-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
+  
+  /* Time slots: 2 columns on very small */
+  .time-slots-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Medium screens (tablet) */
+@media (min-width: 641px) and (max-width: 768px) {
+  /* Service cards: 2 columns on tablet */
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Gallery: 2 columns on tablet */
+  .gallery-grid-tablet {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Capacity indicator styles */
+.slot-capacity {
+  display: block;
+  font-size: 9px;
+  margin-top: 2px;
+  opacity: 0.7;
+}
+
+.slot-full {
+  opacity: 0.25;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+
