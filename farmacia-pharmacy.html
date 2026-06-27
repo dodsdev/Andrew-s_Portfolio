@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="docTitle">Farmacia Pharmacy — Gardenia City Mall</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --white: #FFFFFF;
+    --off-white: #F8F9F5;
+    --green-deep: #1B4332;
+    --green-mid: #2D6A4F;
+    --green-light: #74C69D;
+    --green-pale: #D8F3DC;
+    --text: #1A2E1A;
+    --muted: #6B8C6B;
+    --border: #D4E8D4;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  body { background: var(--white); color: var(--text); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+  /* Navigation */
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.3rem 5rem; position: sticky; top: 0; background: var(--white); z-index: 100;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-left { display: flex; align-items: center; gap: 2rem; }
+  .back-link {
+    color: var(--text); text-decoration: none; font-size: 0.8rem; font-weight: 500;
+    opacity: 0.6; transition: opacity 0.3s, color 0.3s; text-transform: uppercase;
+    letter-spacing: 1px; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .back-link:hover { opacity: 1; color: var(--green-mid); }
+  
+  .logo { display: flex; align-items: center; gap: 0.75rem; }
+  .logo-icon { width: 32px; height: 32px; background: var(--green-deep); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+  .logo-cross { color: white; font-size: 1.2rem; font-weight: 300; line-height: 1; }
+  .logo-text { font-size: 1.1rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--green-deep); }
+  
+  nav ul { list-style: none; display: flex; gap: 2.5rem; align-items: center; }
+  nav a { color: var(--text); text-decoration: none; font-size: 0.85rem; opacity: 0.7; transition: opacity 0.3s; }
+  nav a:hover { opacity: 1; color: var(--green-mid); }
+  .nav-cta { background: var(--green-deep); color: white !important; opacity: 1 !important; padding: 0.55rem 1.4rem; border-radius: 100px; font-size: 0.8rem !important; transition: transform 0.3s var(--ease); }
+  .nav-cta:hover { transform: scale(1.05); }
+
+  .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+
+  /* Lang Switcher */
+  .lang-switch {
+    background: transparent; border: 1px solid rgba(45, 106, 79, 0.4); color: var(--green-mid);
+    padding: 0.4rem 1.1rem; font-family: 'DM Sans', sans-serif; font-size: 0.75rem;
+    font-weight: 500; border-radius: 100px; cursor: pointer; text-transform: uppercase;
+    transition: all 0.3s var(--ease);
+  }
+  .lang-switch:hover { background: var(--green-mid); color: white; }
+
+  /* Mobile Toggle */
+  .menu-toggle {
+    display: none; background: transparent; border: none; cursor: pointer;
+    flex-direction: column; justify-content: space-between; width: 22px; height: 16px;
+    z-index: 110;
+  }
+  .menu-toggle span {
+    display: block; width: 100%; height: 2px; background: var(--text);
+    transition: all 0.3s var(--ease); transform-origin: left center;
+  }
+  .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(2px, -1px); background: var(--green-mid); }
+  .menu-toggle.active span:nth-child(2) { opacity: 0; }
+  .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(2px, 1px); background: var(--green-mid); }
+
+  /* Mobile Drawer */
+  .mobile-menu-drawer {
+    position: fixed; inset: 0; background: var(--white); z-index: 90;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 2rem; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 1px solid var(--border);
+  }
+  .mobile-menu-drawer.active { transform: translateX(0); }
+  .mobile-menu-drawer ul {
+    list-style: none; display: flex; flex-direction: column; gap: 2rem; align-items: center;
+    margin-bottom: 2rem;
+  }
+  .mobile-menu-drawer a {
+    color: var(--text); text-decoration: none; font-size: 1.8rem; font-family: 'DM Serif Display', serif;
+    opacity: 0.8; transition: color 0.3s;
+  }
+  .mobile-menu-drawer a:hover { opacity: 1; color: var(--green-mid); }
+
+  /* Hero */
+  .hero { background: var(--green-deep); padding: 6rem 5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; min-height: 80vh; position: relative; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(116, 198, 157, 0.2); color: var(--green-light); padding: 0.4rem 1rem; border-radius: 100px; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 2rem; }
+  .hero-badge-dot { width: 6px; height: 6px; background: var(--green-light); border-radius: 50%; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 5vw, 5rem); color: white; line-height: 1.1; font-weight: 400; }
+  .hero h1 em { font-style: italic; color: var(--green-light); }
+  .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.65); margin-top: 1.5rem; line-height: 1.8; max-width: 420px; }
+  .hero-btns { display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; }
+  .btn-white { background: white; color: var(--green-deep); padding: 0.9rem 2rem; border: none; border-radius: 100px; cursor: pointer; font-size: 0.85rem; font-weight: 500; font-family: 'DM Sans', sans-serif; transition: all 0.3s var(--ease); }
+  .btn-white:hover { background: var(--green-pale); transform: translateY(-2px); }
+  .btn-outline-white { background: transparent; color: white; padding: 0.9rem 2rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 100px; cursor: pointer; font-size: 0.85rem; font-family: 'DM Sans', sans-serif; transition: all 0.3s var(--ease); }
+  .btn-outline-white:hover { border-color: var(--green-light); color: var(--green-light); transform: translateY(-2px); }
+  
+  .hero-right { display: flex; flex-direction: column; gap: 1rem; }
+  .hero-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem 2rem; display: flex; gap: 1.2rem; align-items: flex-start; transition: all 0.3s; }
+  .hero-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+  .hero-card-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .hero-card h4 { font-size: 0.9rem; color: white; font-weight: 500; }
+  .hero-card p { font-size: 0.8rem; color: rgba(255,255,255,0.55); margin-top: 0.25rem; line-height: 1.6; }
+
+  /* Trust Bar */
+  .trust-bar { background: var(--green-pale); padding: 1.5rem 5rem; display: flex; gap: 3rem; align-items: center; overflow-x: auto; }
+  .trust-bar::-webkit-scrollbar { display: none; }
+  .trust-item { display: flex; align-items: center; gap: 0.6rem; white-space: nowrap; }
+  .trust-icon { color: var(--green-mid); font-size: 0.9rem; }
+  .trust-text { font-size: 0.8rem; color: var(--green-deep); font-weight: 500; }
+
+  /* Services */
+  .services { padding: 8rem 5rem; }
+  .section-tag { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--green-mid); margin-bottom: 0.5rem; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); color: var(--text); font-weight: 400; line-height: 1.1; }
+  
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 3.5rem; }
+  .service-card { background: var(--off-white); border-radius: 16px; padding: 2rem; border: 1px solid var(--border); transition: all 0.3s var(--ease); }
+  .service-card:hover { border-color: var(--green-light); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(45,106,79,0.06); }
+  .service-icon { width: 48px; height: 48px; background: var(--green-pale); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.2rem; }
+  .service-name { font-size: 1rem; font-weight: 500; color: var(--text); }
+  .service-desc { font-size: 0.82rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.7; min-height: 50px; }
+
+  /* Pharmacy Interactive Hub */
+  .pharmacy-hub { padding: 8rem 5rem; background: var(--off-white); }
+  .hub-container { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .hub-widget { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 3.5rem; }
+  .hub-widget h3 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; font-weight: 400; margin-bottom: 0.5rem; }
+  
+  /* Search widget */
+  .search-box { position: relative; margin-top: 1.5rem; }
+  .search-box input {
+    width: 100%; padding: 1.1rem; border: 1px solid var(--border); border-radius: 12px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text);
+  }
+  .search-box input:focus { outline: none; border-color: var(--green-mid); }
+  .search-suggestions {
+    position: absolute; top: 105%; inset-inline: 0; background: var(--white);
+    border: 1px solid var(--border); border-radius: 12px; z-index: 10;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05); overflow: hidden;
+  }
+  .suggestion-item { padding: 0.75rem 1rem; cursor: pointer; font-size: 0.85rem; border-bottom: 1px solid var(--off-white); }
+  .suggestion-item:last-child { border-bottom: none; }
+  .suggestion-item:hover { background: var(--green-pale); color: var(--green-deep); }
+  .search-result { display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem; font-size: 0.88rem; font-weight: 500; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .status-dot.in-stock { background: #22c55e; }
+  .status-dot.low-stock { background: #eab308; }
+  
+  /* Upload widget */
+  .upload-area {
+    border: 2px dashed var(--border); border-radius: 16px; padding: 2.5rem;
+    text-align: center; cursor: pointer; transition: all 0.3s; margin-top: 1.5rem;
+    display: flex; flex-direction: column; justify-content: center; min-height: 180px;
+  }
+  .upload-area:hover { border-color: var(--green-mid); background: var(--off-white); }
+  .upload-icon { font-size: 2.2rem; display: block; margin-bottom: 0.75rem; }
+  .hidden-file-input { display: none; }
+  .progress-bar-container { width: 100%; height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; margin: 1rem 0 0.5rem 0; }
+  .progress-bar { width: 0; height: 100%; background: var(--green-mid); }
+  .upload-success-icon {
+    width: 44px; height: 44px; background: var(--green-pale); color: var(--green-deep);
+    font-size: 1.3rem; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-weight: 700; margin: 0 auto 0.75rem auto;
+  }
+  .reset-upload-btn {
+    margin-top: 1rem; background: var(--green-deep); color: white; border: none;
+    padding: 0.6rem 1.5rem; border-radius: 100px; font-size: 0.75rem; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* Promise */
+  .promise { padding: 8rem 5rem; background: var(--off-white); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .promise-text h2 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 3.5vw, 3.2rem); font-weight: 400; line-height: 1.2; }
+  .promise-text h2 em { font-style: italic; color: var(--green-mid); }
+  .promise-text p { font-size: 0.92rem; color: var(--muted); margin-top: 1.5rem; line-height: 1.9; }
+  
+  .promise-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .promise-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .promise-check { width: 22px; height: 22px; background: var(--green-pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .promise-check span { color: var(--green-mid); font-size: 0.7rem; font-weight: 700; }
+  .promise-item p { font-size: 0.88rem; color: var(--text); line-height: 1.6; }
+  
+  .promise-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .p-stat { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
+  .p-stat-num { font-family: 'DM Serif Display', serif; font-size: 2.5rem; color: var(--green-deep); }
+  .p-stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; line-height: 1.5; }
+
+  /* Visit Section */
+  .visit { padding: 8rem 5rem; }
+  .visit-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+  .visit-card { background: var(--green-deep); border-radius: 20px; padding: 2.5rem; color: white; transition: transform 0.3s; }
+  .visit-card:hover { transform: translateY(-3px); }
+  .visit-card-icon { font-size: 2rem; margin-bottom: 1.5rem; }
+  .visit-card h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; }
+  .visit-card p { font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.7; }
+  .visit-card .highlight { color: var(--green-light); font-weight: 500; }
+
+  /* Footer */
+  footer { background: var(--green-deep); padding: 3rem 5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); }
+  .footer-logo { display: flex; align-items: center; gap: 0.75rem; }
+  .footer-logo-text { font-size: 1rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: white; }
+  .footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+
+  /* Scroll Reveal animation */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ================================================================
+     RTL / ARABIC STYLING OVERRIDES
+     ================================================================ */
+  [dir="rtl"] {
+    font-family: 'Noto Sans Arabic', 'DM Sans', sans-serif;
+  }
+  [dir="rtl"] .back-link { flex-direction: row-reverse; }
+  [dir="rtl"] .back-link span:first-child { display: inline-block; transform: scaleX(-1); }
+  [dir="rtl"] .logo-text { letter-spacing: 0; }
+  [dir="rtl"] .nav-cta { font-size: 0.78rem !important; }
+  [dir="rtl"] .hero-badge { letter-spacing: 0; }
+  [dir="rtl"] .hero h1 { line-height: 1.25; }
+  [dir="rtl"] .btn-white, [dir="rtl"] .btn-outline-white { font-size: 0.78rem; }
+  [dir="rtl"] .promise-item { gap: 1rem; }
+  [dir="rtl"] .promise-check { margin-top: 2px; }
+  [dir="rtl"] .footer-logo-text { letter-spacing: 0; }
+  [dir="rtl"] .lang-switch { letter-spacing: 0; }
+  [dir="rtl"] .status-dot { margin-left: 0.25rem; margin-right: 0; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    nav ul { display: none; }
+    .menu-toggle { display: flex; }
+    .hero, .promise, .visit-grid, .hub-container { grid-template-columns: 1fr; }
+    .hero { padding: 6rem 1.5rem 4rem 1.5rem; gap: 3rem; }
+    .services, .visit, .pharmacy-hub { padding: 5rem 1.5rem; }
+    .promise { padding: 5rem 1.5rem; gap: 2.5rem; }
+    .promise-stats { margin-top: 1.5rem; }
+    .hub-widget { padding: 2rem 1.5rem; }
+    .trust-bar { padding: 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2.5rem 1.5rem; }
+
+    .hero h1 { font-size: clamp(2rem, 7vw, 3rem); }
+    .section-title { font-size: clamp(1.6rem, 5vw, 2.5rem); }
+    .hero-sub { font-size: 0.9rem; }
+    .hero-btns { gap: 0.8rem; }
+    .btn-white, .btn-outline-white { padding: 0.8rem 1.5rem; font-size: 0.8rem; }
+    .hero-card { padding: 1.2rem 1.5rem; }
+    .hero-right { gap: 0.8rem; }
+    .promise-num { font-size: 2.5rem; }
+    .service-card { padding: 2rem 1.5rem; }
+    .hub-widget { padding: 1.5rem 1rem; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: clamp(1.6rem, 6.5vw, 2.2rem); }
+    .section-title { font-size: clamp(1.3rem, 4.5vw, 1.8rem); }
+    .hero { padding: 5rem 1rem 3rem 1rem; gap: 2rem; }
+    .services, .visit, .pharmacy-hub { padding: 3.5rem 1rem; }
+    .promise { padding: 3.5rem 1rem; gap: 2rem; }
+    .hero-btns { flex-direction: column; }
+    .btn-white, .btn-outline-white { width: 100%; text-align: center; }
+    nav { padding: 1rem; }
+    footer { padding: 2rem 1rem; }
+    .promise-stats { flex-direction: column; gap: 1rem; }
+    .hero-card h4 { font-size: 0.8rem; }
+    .hero-card p { font-size: 0.75rem; }
+    .service-card { padding: 1.5rem 1rem; }
+    .visit-grid { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <a href="index.html" class="back-link"><span>←</span> <span data-i18n="backToPortfolio">Back to Portfolio</span></a>
+    <div class="logo">
+      <div class="logo-icon"><span class="logo-cross">✚</span></div>
+      <span class="logo-text">Farmacia</span>
+    </div>
+  </div>
+  <ul>
+    <li><a href="#services" data-i18n="navServices">Services</a></li>
+    <li><a href="#promise" data-i18n="navPromise">Our Promise</a></li>
+    <li><a href="#visit" data-i18n="navVisit">Location</a></li>
+    <li><a href="tel:+201050505677" class="nav-cta" data-i18n="navCall">Call Us</a></li>
+  </ul>
+  <div class="nav-right">
+    <button id="lang-switch" class="lang-switch">العربية</button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="Toggle Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Drawer -->
+<div class="mobile-menu-drawer" id="mobile-menu-drawer">
+  <ul>
+    <li><a href="#services" data-i18n="navServices">Services</a></li>
+    <li><a href="#promise" data-i18n="navPromise">Our Promise</a></li>
+    <li><a href="#visit" data-i18n="navVisit">Location</a></li>
+    <li><a href="tel:+201050505677" data-i18n="navCall">Call Us</a></li>
+  </ul>
+</div>
+
+<section class="hero reveal">
+  <div>
+    <div class="hero-badge"><span class="hero-badge-dot"></span> <span data-i18n="heroBadge">Open 24 hours · Gardenia City Mall</span></div>
+    <h1 data-i18n="heroTitle">Your health,<br><em>always</em> first</h1>
+    <p class="hero-sub" data-i18n="heroSub">Cairo's most trusted pharmacy at Gardenia City Mall — stocked with medicines you can't find anywhere else, and a team that genuinely cares.</p>
+    <div class="hero-btns">
+      <button class="btn-white scroll-to-services" data-i18n="btnServices">Browse Services</button>
+      <button class="btn-outline-white scroll-to-visit">+20 10 50505677</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="hero-card-icon">💊</div>
+      <div>
+        <h4 data-i18n="hCard1Title">Hard-to-find medicines</h4>
+        <p data-i18n="hCard1Desc">We stock what other pharmacies don't. If you need it, we'll find it.</p>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-icon">🚀</div>
+      <div>
+        <h4 data-i18n="hCard2Title">Fast delivery</h4>
+        <p data-i18n="hCard2Desc">Order arrives quickly. Respectful team, efficient service, every time.</p>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-icon">🌙</div>
+      <div>
+        <h4 data-i18n="hCard3Title">Open all night</h4>
+        <p data-i18n="hCard3Desc">24 hours a day, 7 days a week. We're here when you need us most.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">✓</span><span class="trust-text" data-i18n="tBar1">Licensed pharmacists on duty</span></div>
+  <div class="trust-item"><span class="trust-icon">✓</span><span class="trust-text" data-i18n="tBar2">All major brands stocked</span></div>
+  <div class="trust-item"><span class="trust-icon">✓</span><span class="trust-text" data-i18n="tBar3">Free health consultations</span></div>
+  <div class="trust-item"><span class="trust-icon">✓</span><span class="trust-text" data-i18n="tBar4">Prescription processing</span></div>
+  <div class="trust-item"><span class="trust-icon">✓</span><span class="trust-text" data-i18n="tBar5">Baby & mother care</span></div>
+  <div class="trust-item"><span class="trust-icon">✓</span><span class="trust-text" data-i18n="tBar6">Dermatology products</span></div>
+</div>
+
+<section id="services" class="services reveal">
+  <p class="section-tag" data-i18n="servicesTag">What we offer</p>
+  <h2 class="section-title" data-i18n="servicesTitle">Complete care<br>under one roof</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">💊</div>
+      <div class="service-name" data-i18n="s1Name">Prescription medicines</div>
+      <div class="service-desc" data-i18n="s1Desc">All categories filled accurately and quickly by licensed pharmacists.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🧴</div>
+      <div class="service-name" data-i18n="s2Name">Skincare & dermatology</div>
+      <div class="service-desc" data-i18n="s2Desc">Medical-grade skincare, prescription creams, and specialized ointments.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">👶</div>
+      <div class="service-name" data-i18n="s3Name">Mother & baby</div>
+      <div class="service-desc" data-i18n="s3Desc">Formula, supplements, hygiene products, and expert guidance for new parents.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🩺</div>
+      <div class="service-name" data-i18n="s4Name">Health consultations</div>
+      <div class="service-desc" data-i18n="s4Desc">Free pharmacist consultations on medications, interactions, and dosage.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💉</div>
+      <div class="service-name" data-i18n="s5Name">Vitamins & supplements</div>
+      <div class="service-desc" data-i18n="s5Desc">Full range of vitamins, minerals, and herbal supplements from trusted brands.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏠</div>
+      <div class="service-name" data-i18n="s6Name">Home delivery</div>
+      <div class="service-desc" data-i18n="s6Desc">Call us and your order arrives fast. Respectable people, quick service.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Interactive Pharmacy Hub Widget -->
+<section class="pharmacy-hub reveal">
+  <p class="section-tag" style="text-align: center;" data-i18n="hubTag">Interactive Hub</p>
+  <h2 class="section-title" style="text-align: center; margin-bottom: 3.5rem;" data-i18n="hubTitle">Digital Pharmacy Services</h2>
+  
+  <div class="hub-container">
+    <!-- Stock Search Widget -->
+    <div class="hub-widget">
+      <h3 data-i18n="searchTitle">Check Medicine Availability</h3>
+      <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem;" data-i18n="searchDesc">Type a medicine name to check live stock status at Gardenia City Mall.</p>
+      <div class="search-box">
+        <input type="text" id="med-search-input" placeholder="Search Panadol, Augmentin...">
+        <div id="search-suggestions" class="search-suggestions hidden"></div>
+      </div>
+      <div id="search-result" class="search-result hidden">
+        <span class="status-dot"></span>
+        <span id="search-result-text"></span>
+      </div>
+    </div>
+    
+    <!-- Upload Scanner Simulator -->
+    <div class="hub-widget">
+      <h3 data-i18n="uploadTitle">Prescription Upload Scanner</h3>
+      <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem;" data-i18n="uploadDesc">Upload a photo of your prescription to simulate automatic scanning and validation.</p>
+      <div class="upload-area" id="drop-area">
+        <div id="upload-idle">
+          <span class="upload-icon">📄</span>
+          <p data-i18n="uploadPrompt">Drag & drop prescription image or <strong>click here</strong></p>
+          <input type="file" id="prescription-input" accept="image/*" class="hidden-file-input">
+        </div>
+        <div id="upload-progress-box" class="hidden">
+          <p id="progress-text" data-i18n="scanProgress">Scanning prescription...</p>
+          <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+          <span id="progress-percent">0%</span>
+        </div>
+        <div id="upload-success" class="hidden">
+          <div class="upload-success-icon">✓</div>
+          <p style="font-weight: 500;" data-i18n="scanSuccess">Prescription Verified</p>
+          <p style="font-size: 0.78rem; color: var(--muted); margin-top: 0.25rem;" data-i18n="scanSuccessSub">A licensed pharmacist will contact you within 15 minutes.</p>
+          <button id="reset-upload-btn" class="reset-upload-btn" data-i18n="btnUploadAnother">Upload Another</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="promise" class="promise reveal">
+  <div class="promise-text">
+    <p class="section-tag" data-i18n="promiseTag">Our promise to you</p>
+    <h2 data-i18n="promiseTitle">Healthcare with<br><em>genuine</em> care</h2>
+    <p data-i18n="promiseBody">Farmacia was built on a simple belief — that a pharmacy should feel like a trusted partner in your health. Our team is trained not just to dispense, but to listen, advise, and support.</p>
+    <div class="promise-list">
+      <div class="promise-item"><div class="promise-check"><span>✓</span></div><p data-i18n="promiseL1">Clean, organized space with respectful staff at every visit</p></div>
+      <div class="promise-item"><div class="promise-check"><span>✓</span></div><p data-i18n="promiseL2">Medicines stocked that other pharmacies routinely run out of</p></div>
+      <div class="promise-item"><div class="promise-check"><span>✓</span></div><p data-i18n="promiseL3">Fast delivery with consistent follow-through</p></div>
+      <div class="promise-item"><div class="promise-check"><span>✓</span></div><p data-i18n="promiseL4">Licensed pharmacists available for questions around the clock</p></div>
+    </div>
+  </div>
+  <div class="promise-stats">
+    <div class="p-stat"><div class="p-stat-num">24H</div><div class="p-stat-label" data-i18n="stat1">Open every day without exception</div></div>
+    <div class="p-stat"><div class="p-stat-num">4.2★</div><div class="p-stat-label" data-i18n="stat2">Rated by Gardenia City residents</div></div>
+    <div class="p-stat"><div class="p-stat-num">1000+</div><div class="p-stat-label" data-i18n="stat3">Products stocked across all categories</div></div>
+    <div class="p-stat"><div class="p-stat-num">10/10</div><div class="p-stat-label" data-i18n="stat4">Customer service score from verified reviews</div></div>
+  </div>
+</section>
+
+<section id="visit" class="visit reveal">
+  <p class="section-tag" data-i18n="visitTag">Find us</p>
+  <h2 class="section-title" data-i18n="visitTitle">Always nearby,<br>always open</h2>
+  <div class="visit-grid">
+    <div class="visit-card">
+      <div class="visit-card-icon">🕐</div>
+      <h3 data-i18n="vCard1Title">Opening hours</h3>
+      <p data-i18n="vCard1Desc"><span class="highlight">Open 24 hours</span><br>Every day of the year — including public holidays and Eid.</p>
+    </div>
+    <div class="visit-card">
+      <div class="visit-card-icon">📍</div>
+      <h3 data-i18n="vCard2Title">Address</h3>
+      <p data-i18n="vCard2Desc">Gardenia City Compound Mall<br>Nasr City, Cairo Governorate 4455010</p>
+    </div>
+    <div class="visit-card">
+      <div class="visit-card-icon">📞</div>
+      <h3 data-i18n="vCard3Title">Contact us</h3>
+      <p data-i18n="vCard3Desc"><span class="highlight">+20 10 50505677</span><br>Call for delivery, stock checks, or pharmacist consultations.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <div class="logo-icon"><span class="logo-cross">✚</span></div>
+    <span class="footer-logo-text">Farmacia</span>
+  </div>
+  <div class="footer-copy" data-i18n="footerCopy">© 2025 Farmacia Pharmacy · Gardenia City Mall, Nasr City, Cairo</div>
+</footer>
+
+<script>
+  /* ==============================================================
+     TRANSLATIONS DICTIONARY
+     ============================================================== */
+  const T = {
+    en: {
+      docTitle: "Farmacia Pharmacy — Gardenia City Mall",
+      backToPortfolio: "Back to Portfolio",
+      navServices: "Services",
+      navPromise: "Our Promise",
+      navVisit: "Location",
+      navCall: "Call Us",
+
+      heroBadge: "Open 24 hours · Gardenia City Mall",
+      heroTitle: "Your health,<br><em>always</em> first",
+      heroSub: "Cairo's most trusted pharmacy at Gardenia City Mall — stocked with medicines you can't find anywhere else, and a team that genuinely cares.",
+      btnServices: "Browse Services",
+
+      hCard1Title: "Hard-to-find medicines",
+      hCard1Desc: "We stock what other pharmacies don't. If you need it, we'll find it.",
+      hCard2Title: "Fast delivery",
+      hCard2Desc: "Order arrives quickly. Respectful team, efficient service, every time.",
+      hCard3Title: "Open all night",
+      hCard3Desc: "24 hours a day, 7 days a week. We're here when you need us most.",
+
+      tBar1: "Licensed pharmacists on duty",
+      tBar2: "All major brands stocked",
+      tBar3: "Free health consultations",
+      tBar4: "Prescription processing",
+      tBar5: "Baby & mother care",
+      tBar6: "Dermatology products",
+
+      servicesTag: "What we offer",
+      servicesTitle: "Complete care<br>under one roof",
+      s1Name: "Prescription medicines",
+      s1Desc: "All categories filled accurately and quickly by licensed pharmacists.",
+      s2Name: "Skincare & dermatology",
+      s2Desc: "Medical-grade skincare, prescription creams, and specialized ointments.",
+      s3Name: "Mother & baby",
+      s3Desc: "Formula, supplements, hygiene products, and expert guidance for new parents.",
+      s4Name: "Health consultations",
+      s4Desc: "Free pharmacist consultations on medications, interactions, and dosage.",
+      s5Name: "Vitamins & supplements",
+      s5Desc: "Full range of vitamins, minerals, and herbal supplements from trusted brands.",
+      s6Name: "Home delivery",
+      s6Desc: "Call us and your order arrives fast. Respectable people, quick service.",
+
+      hubTag: "Interactive Hub",
+      hubTitle: "Digital Pharmacy Services",
+      searchTitle: "Check Medicine Availability",
+      searchDesc: "Type a medicine name to check live stock status at Gardenia City Mall.",
+      searchPlaceholder: "Search Panadol, Augmentin...",
+      uploadTitle: "Prescription Upload Scanner",
+      uploadDesc: "Upload a photo of your prescription to simulate automatic scanning and validation.",
+      uploadPrompt: "Drag & drop prescription image or <strong>click here</strong>",
+      scanProgress: "Scanning prescription...",
+      scanSuccess: "Prescription Verified",
+      scanSuccessSub: "A licensed pharmacist will contact you within 15 minutes.",
+      btnUploadAnother: "Upload Another",
+
+      promiseTag: "Our promise to you",
+      promiseTitle: "Healthcare with<br><em>genuine</em> care",
+      promiseBody: "Farmacia was built on a simple belief — that a pharmacy should feel like a trusted partner in your health. Our team is trained not just to dispense, but to listen, advise, and support.",
+      promiseL1: "Clean, organized space with respectful staff at every visit",
+      promiseL2: "Medicines stocked that other pharmacies routinely run out of",
+      promiseL3: "Fast delivery with consistent follow-through",
+      promiseL4: "Licensed pharmacists available for questions around the clock",
+
+      stat1: "Open every day without exception",
+      stat2: "Rated by Gardenia City residents",
+      stat3: "Products stocked across all categories",
+      stat4: "Customer service score from verified reviews",
+
+      visitTag: "Find us",
+      visitTitle: "Always nearby,<br>always open",
+      vCard1Title: "Opening hours",
+      vCard1Desc: "Open 24 hours<br>Every day of the year — including public holidays and Eid.",
+      vCard2Title: "Address",
+      vCard2Desc: "Gardenia City Compound Mall<br>Nasr City, Cairo Governorate 4455010",
+      vCard3Title: "Contact us",
+      vCard3Desc: "Call for delivery, stock checks, or pharmacist consultations.",
+
+      footerCopy: "© 2025 Farmacia Pharmacy · Gardenia City Mall, Nasr City, Cairo",
+
+      inStock: "In Stock",
+      lowStock: "Low Stock",
+      outOfStock: "Out of Stock"
+    },
+    ar: {
+      docTitle: "صيدلية فارماسيا — جاردينيا سيتي مول",
+      backToPortfolio: "العودة للمعرض",
+      navServices: "الخدمات",
+      navPromise: "التزامنا",
+      navVisit: "الموقع",
+      navCall: "اتصل بنا",
+
+      heroBadge: "مفتوح ٢٤ ساعة · جاردينيا سيتي مول",
+      heroTitle: "صحتك وصحة عائلتك،<br><em>دائماً</em> في المقام الأول",
+      heroSub: "الصيدلية الأكثر موثوقية في جاردينيا سيتي مول بمدينة نصر — نوفر الأدوية النادرة التي يصعب العثور عليها في أماكن أخرى، مع فريق صيدلاني يهتم بصحتك بصدق.",
+      btnServices: "تصفح خدماتنا",
+
+      hCard1Title: "توفير الأدوية النادرة",
+      hCard1Desc: "نوفر الأدوية والنواقص التي يصعب العثور عليها في الصيدليات الأخرى. إذا كنت تحتاجه، فسنوفره لك.",
+      hCard2Title: "خدمة توصيل سريعة",
+      hCard2Desc: "تصل الطلبات إلى باب منزلك بسرعة فائقة وأمان، مع طاقم توصيل مهذب ومحترم في كل مرة.",
+      hCard3Title: "مفتوح طوال الليل",
+      hCard3Desc: "نعمل على مدار ٢٤ ساعة في اليوم، ٧ أيام في الأسبوع. متواجدون لخدمتك في أي وقت تحتاجنا فيه.",
+
+      tBar1: "صيادلة مرخصون متواجدون دائماً",
+      tBar2: "نوفر جميع الماركات والمنتجات الطبية والجمالية",
+      tBar3: "استشارات وإرشادات صحية مجانية",
+      tBar4: "قراءة وصرف جميع الروشتات بدقة تامة",
+      tBar5: "رعاية كاملة بمنتجات الأم والطفل",
+      tBar6: "أدوية ومستحضرات العناية بالجلد والبشرة",
+
+      servicesTag: "ما نقدمه",
+      servicesTitle: "رعاية صحية متكاملة<br>تحت سقف واحد",
+      s1Name: "صرف الأدوية والروشتات",
+      s1Desc: "صرف وقراءة دقيقة للروشتات والوصفات الطبية بسرعة وأمان تحت إشراف صيادلة مرخصين.",
+      s2Name: "العناية بالبشرة والتجميل",
+      s2Desc: "مستحضرات طبية للعناية بالبشرة، كريمات علاجية وتركيبات جلدية مرخصة.",
+      s3Name: "رعاية الأم والطفل",
+      s3Desc: "ألبان أطفال، مكملات غذائية، منتجات العناية بالطفل وإرشادات للوالدين الجدد.",
+      s4Name: "استشارات طبية مجانية",
+      s4Desc: "استشارة مجانية من الصيادلة حول الأدوية وتفاعلاتها والجرعات المناسبة لأعمار الأطفال وكبار السن.",
+      s5Name: "الفيتامينات والمكملات",
+      s5Desc: "مجموعة شاملة من الفيتامينات والمعادن والمكملات الغذائية من ماركات عالمية موثوقة.",
+      s6Name: "توصيل سريع للمنازل",
+      s6Desc: "تواصل معنا هاتفياً أو عبر واتساب وسيصلك طلبك بسرعة وبصورة محترمة للغاية.",
+
+      hubTag: "الخدمات الإلكترونية",
+      hubTitle: "الخدمات الصيدلانية التفاعلية",
+      searchTitle: "التأكد من توافر دواء",
+      searchDesc: "اكتب اسم الدواء للتأكد الفوري من مدى توافره في مخزوننا بجاردينيا سيتي مول.",
+      searchPlaceholder: "ابحث عن بنادول، أوجمنتين، كتافلام...",
+      uploadTitle: "ماسح الروشتات الإلكتروني",
+      uploadDesc: "ارفع صورة الروشتة الطبية لمحاكاة الفحص والتحقق التلقائي السريع.",
+      uploadPrompt: "اسحب وأسقط صورة الروشتة هنا أو <strong>اضغط هنا لاختيار ملف</strong>",
+      scanProgress: "جاري فحص وقراءة الروشتة...",
+      scanSuccess: "تم التحقق من الروشتة بنجاح",
+      scanSuccessSub: "سيتصل بك الصيدلي المناوب خلال ١٥ دقيقة لتأكيد الطلب والتوصيل.",
+      btnUploadAnother: "رفع روشتة أخرى",
+
+      promiseTag: "وعدنا والتزامنا لك",
+      promiseTitle: "رعاية صحية مقترنة<br><em>بالاهتمام الصادق</em>",
+      promiseBody: "تأسست فارماسيا على مبدأ بسيط — أن الصيدلية يجب أن تكون شريكاً موثوقاً في صحتك. فريقنا مدرب ليس فقط على صرف الدواء، بل على الاستماع، التوجيه، والمساعدة الصادقة.",
+      promiseL1: "مكان نظيف ومنظم للغاية مع تعامل راقٍ ومهذب من جميع الموظفين",
+      promiseL2: "تأمين الأدوية النادرة التي تعاني الصيدليات الأخرى من نقص مستمر فيها",
+      promiseL3: "توصيل سريع للغاية ومتابعة دقيقة لكل الطلبات الموجهة للمنازل",
+      promiseL4: "صيادلة مرخصون متاحون للرد على استفساراتكم الطبية طوال الـ ٢٤ ساعة",
+
+      stat1: "مفتوحون يومياً دون أي عطلات بما في ذلك الأعياد",
+      stat2: "تقييم عالٍ وممتاز من سكان جاردينيا سيتي",
+      stat3: "منتجات طبية وجمالية متوفرة في مختلف الأقسام",
+      stat4: "مؤشر رضا خدمة العملاء من المراجعات الموثقة للزوار",
+
+      visitTag: "موقعنا",
+      visitTitle: "قريبون منك دائماً،<br>وأبوابنا مفتوحة لكم",
+      vCard1Title: "مواعيد العمل",
+      vCard1Desc: "مفتوح ٢٤ ساعة طوال أيام السنة<br>بما في ذلك العطلات الرسمية وأيام الأعياد.",
+      vCard2Title: "العنوان بالتفصيل",
+      vCard2Desc: "مول الكومبوند، جاردينيا سيتي<br>مدينة نصر، محافظة القاهرة ٤٤٥٥٠١٠",
+      vCard3Title: "اتصل بنا",
+      vCard3Desc: "لطلب التوصيل، التأكد من توافر دواء، أو الاستفسارات الصيدلانية الطبية.",
+
+      footerCopy: "© ٢٠٢٥ صيدلية فارماسيا · جاردينيا سيتي مول، مدينة نصر، القاهرة",
+
+      inStock: "متوفر بالمخزون",
+      lowStock: "مخزون منخفض",
+      outOfStock: "غير متوفر مؤقتاً"
+    }
+  };
+
+  /* ==============================================================
+     MEDICINES DATABASE
+     ============================================================== */
+  const MEDICINES_DB = [
+    { en: "Panadol Extra", ar: "بنادول إكسترا", status: "in-stock" },
+    { en: "Panadol Joint", ar: "بنادول جوينت", status: "in-stock" },
+    { en: "Augmentin 1g", ar: "أوجمنتين ١ جرام", status: "in-stock" },
+    { en: "Cataflam 50mg", ar: "كتافلام ٥٠ مجم", status: "in-stock" },
+    { en: "Concor 5mg", ar: "كونكور ٥ مجم", status: "in-stock" },
+    { en: "Voltaren Emulgel", ar: "فولتارين إيمولجيل", status: "low-stock" },
+    { en: "Ventolin Inhaler", ar: "بخاخة فنتولين", status: "in-stock" },
+    { en: "Euthyrox 50mcg", ar: "يوتيروكس ٥٠ ميكروجرام", status: "low-stock" }
+  ];
+
+  let lang = "en";
+
+  function setLang(l) {
+    lang = l;
+    const html = document.documentElement;
+    html.setAttribute("lang", l);
+    html.setAttribute("dir", l === "ar" ? "rtl" : "ltr");
+
+    // Toggle button label
+    document.getElementById("lang-switch").textContent = l === "en" ? "العربية" : "English";
+
+    // Text translations
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (T[l][key]) {
+        el.innerHTML = T[l][key];
+      }
+    });
+
+    // Form input placeholders
+    const searchInput = document.getElementById("med-search-input");
+    if (searchInput) searchInput.placeholder = T[l].searchPlaceholder;
+
+    // Reset current search state to update localization
+    resetSearchState();
+
+    // Save language preference
+    try { localStorage.setItem("lang", l); } catch (e) {}
+  }
+
+  function resetSearchState() {
+    const input = document.getElementById("med-search-input");
+    const resultBox = document.getElementById("search-result");
+    if (input) input.value = "";
+    if (resultBox) resultBox.classList.add("hidden");
+  }
+
+  /* ==============================================================
+     LANGUAGE TOGGLE INITIALIZATION
+     ============================================================== */
+  document.getElementById("lang-switch").addEventListener("click", () => {
+    setLang(lang === "en" ? "ar" : "en");
+  });
+
+  // Check saved language on load
+  try {
+    const savedLang = localStorage.getItem("lang");
+    if (savedLang === "ar" || savedLang === "en") {
+      setLang(savedLang);
+    } else {
+      setLang("en");
+    }
+  } catch (e) {
+    setLang("en");
+  }
+
+  /* ==============================================================
+     MOBILE DRAWER NAVIGATION
+     ============================================================== */
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenuDrawer = document.getElementById("mobile-menu-drawer");
+
+  menuToggle.addEventListener("click", () => {
+    menuToggle.classList.toggle("active");
+    mobileMenuDrawer.classList.toggle("active");
+  });
+
+  mobileMenuDrawer.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      menuToggle.classList.remove("active");
+      mobileMenuDrawer.classList.remove("active");
+    });
+  });
+
+  /* ==============================================================
+     SCROLL SCROLL UTILS
+     ============================================================== */
+  const scrollServices = document.querySelector(".scroll-to-services");
+  if (scrollServices) {
+    scrollServices.addEventListener("click", () => {
+      document.getElementById("services").scrollIntoView({ behavior: "smooth" });
+    });
+  }
+  const scrollVisit = document.querySelector(".scroll-to-visit");
+  if (scrollVisit) {
+    scrollVisit.addEventListener("click", () => {
+      document.getElementById("visit").scrollIntoView({ behavior: "smooth" });
+    });
+  }
+
+  /* ==============================================================
+     SCROLL REVEAL OBSERVER
+     ============================================================== */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+  /* ==============================================================
+     LIVE STOCK SEARCH CONTROLLER
+     ============================================================== */
+  const searchInput = document.getElementById("med-search-input");
+  const suggestionsBox = document.getElementById("search-suggestions");
+  const resultBox = document.getElementById("search-result");
+  const resultText = document.getElementById("search-result-text");
+  const resultDot = resultBox.querySelector(".status-dot");
+
+  searchInput.addEventListener("input", (e) => {
+    const val = e.target.value.toLowerCase().trim();
+    if (val.length === 0) {
+      suggestionsBox.classList.add("hidden");
+      resultBox.classList.add("hidden");
+      return;
+    }
+
+    const matches = MEDICINES_DB.filter(med => 
+      med.en.toLowerCase().includes(val) || med.ar.includes(val)
+    );
+
+    if (matches.length > 0) {
+      suggestionsBox.classList.remove("hidden");
+      suggestionsBox.innerHTML = matches.slice(0, 4).map(med => `
+        <div class="suggestion-item" data-en="${med.en}" data-ar="${med.ar}" data-status="${med.status}">
+          ${lang === "ar" ? med.ar : med.en}
+        </div>
+      `).join("");
+    } else {
+      suggestionsBox.classList.add("hidden");
+      // Show not found
+      resultBox.classList.remove("hidden");
+      resultDot.className = "status-dot"; // remove colors
+      resultDot.style.background = "#ef4444";
+      resultText.textContent = T[lang].outOfStock;
+    }
+  });
+
+  suggestionsBox.addEventListener("click", (e) => {
+    const item = e.target.closest(".suggestion-item");
+    if (!item) return;
+
+    const enName = item.getAttribute("data-en");
+    const arName = item.getAttribute("data-ar");
+    const status = item.getAttribute("data-status");
+
+    searchInput.value = lang === "ar" ? arName : enName;
+    suggestionsBox.classList.add("hidden");
+
+    resultBox.classList.remove("hidden");
+    resultDot.style.background = ""; // Reset
+    if (status === "in-stock") {
+      resultDot.className = "status-dot in-stock";
+      resultText.textContent = `${lang === "ar" ? arName : enName} — ${T[lang].inStock}`;
+    } else {
+      resultDot.className = "status-dot low-stock";
+      resultText.textContent = `${lang === "ar" ? arName : enName} — ${T[lang].lowStock}`;
+    }
+  });
+
+  // Hide suggestions when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".search-box")) {
+      suggestionsBox.classList.add("hidden");
+    }
+  });
+
+  /* ==============================================================
+     PRESCRIPTION UPLOAD SCANNER SIMULATOR
+     ============================================================== */
+  const dropArea = document.getElementById("drop-area");
+  const fileInput = document.getElementById("prescription-input");
+  const idleBox = document.getElementById("upload-idle");
+  const progressBox = document.getElementById("upload-progress-box");
+  const successBox = document.getElementById("upload-success");
+  const progressBar = document.getElementById("progress-bar");
+  const progressPercent = document.getElementById("progress-percent");
+  const resetUploadBtn = document.getElementById("reset-upload-btn");
+
+  dropArea.addEventListener("click", () => {
+    if (idleBox.classList.contains("hidden")) return;
+    fileInput.click();
+  });
+
+  fileInput.addEventListener("change", (e) => {
+    if (e.target.files.length > 0) {
+      simulateScan();
+    }
+  });
+
+  // Drag and drop prevent defaults
+  ["dragenter", "dragover", "dragleave", "drop"].forEach(eventName => {
+    dropArea.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    }, false);
+  });
+
+  dropArea.addEventListener("drop", (e) => {
+    if (idleBox.classList.contains("hidden")) return;
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    if (files.length > 0 && files[0].type.startsWith("image/")) {
+      simulateScan();
+    }
+  });
+
+  function simulateScan() {
+    idleBox.classList.add("hidden");
+    progressBox.classList.remove("hidden");
+    successBox.classList.add("hidden");
+    progressBar.style.width = "0%";
+    progressPercent.textContent = "0%";
+
+    let percentage = 0;
+    const interval = setInterval(() => {
+      percentage += 5;
+      progressBar.style.width = percentage + "%";
+      progressPercent.textContent = percentage + "%";
+
+      if (percentage >= 100) {
+        clearInterval(interval);
+        setTimeout(() => {
+          progressBox.classList.add("hidden");
+          successBox.classList.remove("hidden");
+        }, 300);
+      }
+    }, 100);
+  }
+
+  resetUploadBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    fileInput.value = "";
+    successBox.classList.add("hidden");
+    idleBox.classList.remove("hidden");
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,2173 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="docTitle">24 GYM — Gardenia City Mall</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;900&family=Barlow:wght@400;500;700&family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --black: #050505;
+      --white: #FFFFFF;
+      --yellow: #FFE500;
+      --orange: #FF4D00;
+      --gray: #121212;
+      --mid-gray: #242424;
+      --light-gray: #A0A0A0;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --header-height: 72px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--header-height) + 1rem);
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 0;
+      background: var(--yellow);
+      color: var(--black);
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      z-index: 200;
+      transition: top 200ms;
+      text-decoration: none;
+    }
+
+    .skip-link:focus {
+      top: 0;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--yellow);
+      outline-offset: 2px;
+    }
+
+    button,
+    a {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 5rem;
+      position: sticky;
+      top: 0;
+      background: var(--black);
+      z-index: 100;
+      border-bottom: 3px solid var(--yellow);
+      min-height: var(--header-height);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .back-link {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      opacity: 0.8;
+      transition: all 0.2s var(--ease);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 2px solid var(--mid-gray);
+      padding: 0.5rem 1rem;
+    }
+
+    .back-link:hover {
+      opacity: 1;
+      border-color: var(--yellow);
+      color: var(--yellow);
+    }
+
+    .back-link:focus-visible {
+      outline-color: var(--yellow);
+    }
+
+    .logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: var(--yellow);
+      text-shadow: 2px 2px 0 var(--orange);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    nav a:hover {
+      opacity: 1;
+      color: var(--yellow);
+    }
+
+    nav a.active {
+      opacity: 1;
+      color: var(--yellow);
+    }
+
+    .nav-join {
+      background: var(--yellow);
+      color: var(--black) !important;
+      opacity: 1 !important;
+      padding: 0.6rem 1.6rem;
+      font-weight: 900 !important;
+      letter-spacing: 2px;
+      border: 2px solid var(--black);
+    }
+
+    .nav-join:hover {
+      background: var(--white);
+      box-shadow: 3px 3px 0 var(--orange);
+      transform: translate(-3px, -3px);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .lang-switch {
+      background: transparent;
+      border: 2px solid var(--yellow);
+      color: var(--yellow);
+      padding: 0.5rem 1.2rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s var(--ease);
+    }
+
+    .lang-switch:hover {
+      background: var(--yellow);
+      color: var(--black);
+      box-shadow: 3px 3px 0 var(--white);
+      transform: translate(-3px, -3px);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 24px;
+      height: 18px;
+      z-index: 110;
+      padding: 0;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: var(--white);
+      transition: all 0.2s var(--ease);
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 4px);
+      background: var(--yellow);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+      background: var(--yellow);
+    }
+
+    .mobile-menu-drawer {
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      transform: translateX(100%);
+      transition: transform 0.3s var(--ease);
+      border-left: 3px solid var(--yellow);
+    }
+
+    .mobile-menu-drawer.active {
+      transform: translateX(0);
+    }
+
+    .mobile-menu-drawer ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .mobile-menu-drawer a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 2.2rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .mobile-menu-drawer a:hover {
+      opacity: 1;
+      color: var(--yellow);
+    }
+
+    .hero {
+      min-height: 95vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 5rem;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 80% 20%, #1a1000 0%, var(--black) 60%);
+    }
+
+    .hero-grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(255, 229, 0, 0.015) 80px, rgba(255, 229, 0, 0.015) 81px), repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(255, 229, 0, 0.015) 80px, rgba(255, 229, 0, 0.015) 81px);
+    }
+
+    .hero-number {
+      position: absolute;
+      right: -2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 40vw;
+      font-weight: 900;
+      color: rgba(255, 229, 0, 0.02);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 2px solid var(--yellow);
+      background: var(--gray);
+      color: var(--yellow);
+      padding: 0.5rem 1.2rem;
+      font-size: 0.8rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: 3px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      box-shadow: 4px 4px 0 var(--orange);
+    }
+
+    h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(4.5rem, 13vw, 11rem);
+      font-weight: 900;
+      line-height: 0.8;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+    }
+
+    h1 span {
+      color: var(--yellow);
+      display: block;
+      text-shadow: 4px 4px 0 var(--orange);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--light-gray);
+      margin-top: 2rem;
+      max-width: 550px;
+      line-height: 1.8;
+      border-left: 3px solid var(--orange);
+      padding-left: 1.2rem;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-yellow {
+      background: var(--yellow);
+      color: var(--black);
+      padding: 1.1rem 3rem;
+      border: 2px solid var(--black);
+      cursor: pointer;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      transition: all 0.15s var(--ease);
+    }
+
+    .btn-yellow:hover {
+      background: var(--orange);
+      color: var(--white);
+      box-shadow: 4px 4px 0 var(--white);
+      transform: translate(-4px, -4px);
+    }
+
+    .btn-yellow:active {
+      transform: translate(0, 0);
+      box-shadow: none;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      padding: 1.1rem 3rem;
+      border: 2px solid var(--white);
+      cursor: pointer;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      transition: all 0.15s var(--ease);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--yellow);
+      color: var(--yellow);
+      box-shadow: 4px 4px 0 var(--orange);
+      transform: translate(-4px, -4px);
+    }
+
+    .btn-outline:active {
+      transform: translate(0, 0);
+      box-shadow: none;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 4rem;
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 2px solid var(--mid-gray);
+      flex-wrap: wrap;
+    }
+
+    .h-stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--yellow);
+      text-shadow: 2px 2px 0 var(--orange);
+    }
+
+    .h-stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--light-gray);
+      margin-top: 0.2rem;
+      font-weight: 700;
+    }
+
+    .features {
+      background: var(--yellow);
+      padding: 2rem 5rem;
+      display: flex;
+      gap: 4rem;
+      align-items: center;
+      overflow-x: auto;
+      border-top: 3px solid var(--white);
+      border-bottom: 3px solid var(--white);
+      transform: skewY(-1deg);
+      margin: 2rem 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--black) transparent;
+    }
+
+    .features::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .features::-webkit-scrollbar-thumb {
+      background: var(--black);
+      border-radius: 4px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      white-space: nowrap;
+      transform: skewY(1deg);
+    }
+
+    .feature-icon {
+      font-size: 1.2rem;
+    }
+
+    .feature-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+
+    .feat-div {
+      width: 2px;
+      height: 30px;
+      background: var(--black);
+      flex-shrink: 0;
+      opacity: 0.4;
+    }
+
+    .section {
+      padding: 8rem 5rem;
+    }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      background: var(--mid-gray);
+      padding: 0.2rem 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 0.85;
+      letter-spacing: -1px;
+      margin-top: 0.5rem;
+    }
+
+    .plans {
+      background: var(--black);
+      border-top: 3px solid var(--mid-gray);
+    }
+
+    .pricing-toggle-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      margin-bottom: 4rem;
+    }
+
+    .toggle-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--light-gray);
+      transition: color 0.2s;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-label.active {
+      color: var(--yellow);
+      text-shadow: 1px 1px 0 var(--orange);
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 56px;
+      height: 28px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      inset: 0;
+      background-color: var(--mid-gray);
+      transition: .2s var(--ease);
+      border: 2px solid var(--white);
+    }
+
+    .slider::before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: var(--white);
+      transition: .2s var(--ease);
+    }
+
+    input:checked+.slider {
+      background-color: var(--orange);
+    }
+
+    input:checked+.slider::before {
+      transform: translateX(26px);
+      background-color: var(--yellow);
+    }
+
+    [dir="rtl"] input:checked+.slider::before {
+      transform: translateX(-26px);
+    }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .plan {
+      background: var(--gray);
+      padding: 3.5rem 2.5rem;
+      border: 2px solid var(--mid-gray);
+      transition: all 0.2s var(--ease);
+      position: relative;
+    }
+
+    .plan:hover {
+      border-color: var(--yellow);
+      transform: translate(-6px, -6px);
+      box-shadow: 6px 6px 0 var(--yellow);
+    }
+
+    .plan:nth-child(2) {
+      background: #0c0a00;
+      border: 3px solid var(--yellow);
+    }
+
+    .plan:nth-child(2):hover {
+      border-color: var(--orange);
+      box-shadow: 6px 6px 0 var(--orange);
+    }
+
+    .plan-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--light-gray);
+    }
+
+    .plan:nth-child(2) .plan-name {
+      color: var(--yellow);
+    }
+
+    .plan-price {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3.8rem;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+      margin-top: 1rem;
+    }
+
+    .plan-price span {
+      font-size: 1.1rem;
+      color: var(--light-gray);
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+
+    .plan-desc {
+      font-size: 0.88rem;
+      color: var(--light-gray);
+      margin-top: 1rem;
+      line-height: 1.7;
+      min-height: 55px;
+    }
+
+    .plan-features {
+      list-style: none;
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .plan-features li {
+      font-size: 0.9rem;
+      color: var(--white);
+      padding-left: 1.5rem;
+      position: relative;
+      opacity: 0.9;
+      font-weight: 700;
+    }
+
+    .plan-features li::before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      color: var(--yellow);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+    }
+
+    .plan-btn {
+      display: block;
+      text-align: center;
+      background: var(--mid-gray);
+      color: var(--white);
+      padding: 1.1rem;
+      margin-top: 2.5rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 2px solid transparent;
+      width: 100%;
+      transition: all 0.15s;
+    }
+
+    .plan-btn:hover {
+      background: var(--white);
+      color: var(--black);
+      box-shadow: 4px 4px 0 var(--yellow);
+      transform: translate(-4px, -4px);
+    }
+
+    .plan:nth-child(2) .plan-btn {
+      background: var(--yellow);
+      color: var(--black);
+      border-color: var(--black);
+    }
+
+    .plan:nth-child(2) .plan-btn:hover {
+      background: var(--orange);
+      color: var(--white);
+      box-shadow: 4px 4px 0 var(--white);
+    }
+
+    .equipment {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .equipment-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .equip-item {
+      background: var(--gray);
+      padding: 1.8rem 1.5rem;
+      border: 2px solid var(--mid-gray);
+      border-left: 5px solid var(--yellow);
+      transition: all 0.2s var(--ease);
+    }
+
+    .equip-item:hover {
+      border-color: var(--yellow);
+      border-left-width: 10px;
+      transform: translateX(6px);
+      background: #161616;
+    }
+
+    .equip-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .equip-desc {
+      font-size: 0.8rem;
+      color: var(--light-gray);
+      margin-top: 0.4rem;
+      font-weight: 500;
+    }
+
+    .equip-visual {
+      background: var(--gray);
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      position: relative;
+      border: 3px solid var(--mid-gray);
+    }
+
+    .equip-visual::before {
+      content: 'SPECIFICATION';
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 900;
+      color: var(--light-gray);
+      letter-spacing: 2px;
+    }
+
+    .equip-visual-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 10rem;
+      font-weight: 900;
+      color: var(--yellow);
+      opacity: 0.35;
+      text-shadow: 4px 4px 0 var(--orange);
+      transition: transform 0.4s var(--ease);
+    }
+
+    .equip-visual:hover .equip-visual-num {
+      transform: scale(1.1) rotate(2deg);
+    }
+
+    .equip-visual-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 900;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .coaches {
+      background: var(--black);
+      border-top: 3px solid var(--mid-gray);
+    }
+
+    .coaches-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+
+    .coach {
+      background: var(--gray);
+      padding: 3.5rem 2.5rem;
+      border: 2px solid var(--mid-gray);
+      transition: all 0.2s var(--ease);
+    }
+
+    .coach:hover {
+      border-color: var(--orange);
+      transform: translate(-6px, -6px);
+      box-shadow: 6px 6px 0 var(--orange);
+    }
+
+    .coach-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--mid-gray);
+      border: 2px solid var(--white);
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .coach-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .coach-spec {
+      font-size: 0.85rem;
+      color: var(--yellow);
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    .coach-hours {
+      font-size: 0.82rem;
+      color: var(--light-gray);
+      margin-top: 0.8rem;
+      line-height: 1.6;
+      border-top: 1px solid var(--mid-gray);
+      padding-top: 0.8rem;
+    }
+
+    .visit {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .visit-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .visit-row {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .visit-row-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      padding: 0.5rem;
+      background: var(--gray);
+      border: 1px solid var(--mid-gray);
+    }
+
+    .visit-row-content h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--yellow);
+    }
+
+    .visit-row-content p {
+      font-size: 0.9rem;
+      color: var(--light-gray);
+      margin-top: 0.4rem;
+      line-height: 1.6;
+    }
+
+    .join-block {
+      background: var(--yellow);
+      padding: 4.5rem 3.5rem;
+      border: 3px solid var(--white);
+      color: var(--black);
+      box-shadow: 8px 8px 0 var(--orange);
+    }
+
+    .join-block h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--black);
+      text-transform: uppercase;
+      line-height: 0.85;
+      text-shadow: 2px 2px 0 var(--white);
+    }
+
+    .join-block p {
+      font-size: 0.88rem;
+      color: rgba(0, 0, 0, 0.8);
+      margin-top: 1.2rem;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    .join-block button {
+      background: var(--black);
+      color: var(--yellow);
+      padding: 1.1rem 2.8rem;
+      border: 2px solid var(--black);
+      cursor: pointer;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 2rem;
+      transition: all 0.15s;
+    }
+
+    .join-block button:hover {
+      background: var(--white);
+      color: var(--black);
+      box-shadow: 4px 4px 0 var(--orange);
+      transform: translate(-4px, -4px);
+    }
+
+    footer {
+      background: #000000;
+      padding: 3rem 5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 3px solid var(--yellow);
+    }
+
+    .footer-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--yellow);
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 0 var(--orange);
+    }
+
+    .footer-copy {
+      font-size: 0.8rem;
+      color: var(--light-gray);
+      font-weight: 500;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 120;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s var(--ease);
+    }
+
+    .modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: var(--black);
+      border: 3px solid var(--yellow);
+      width: 90%;
+      max-width: 480px;
+      padding: 3.5rem 3rem;
+      position: relative;
+      border-radius: 0;
+      box-shadow: 8px 8px 0 var(--orange);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      background: transparent;
+      border: none;
+      color: var(--white);
+      font-size: 2.2rem;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: color 0.2s;
+      line-height: 1;
+      padding: 0.25rem;
+    }
+
+    .close-modal:hover {
+      color: var(--orange);
+    }
+
+    .modal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 2rem;
+    }
+
+    .modal-form label {
+      font-size: 0.75rem;
+      color: var(--light-gray);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin-bottom: -0.8rem;
+    }
+
+    .modal-form input,
+    .modal-form select {
+      background: var(--gray);
+      border: 2px solid var(--mid-gray);
+      padding: 1.1rem;
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.95rem;
+      border-radius: 0;
+    }
+
+    .modal-form input:focus,
+    .modal-form select:focus {
+      outline: none;
+      border-color: var(--yellow);
+    }
+
+    .modal-form input::placeholder {
+      color: var(--light-gray);
+      opacity: 0.6;
+    }
+
+    .success-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.2rem;
+      padding: 1.5rem 0;
+    }
+
+    .success-icon {
+      width: 72px;
+      height: 72px;
+      background: var(--yellow);
+      color: var(--black);
+      font-size: 2.2rem;
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      border: 3px solid var(--white);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Scroll to top */
+    .scroll-top {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: var(--black);
+      border: 2px solid var(--black);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 300ms var(--ease), transform 300ms var(--ease), background 200ms;
+      pointer-events: none;
+      z-index: 90;
+      font-size: 1.2rem;
+      font-weight: 900;
+      box-shadow: 3px 3px 0 var(--orange);
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .scroll-top:hover {
+      background: var(--white);
+    }
+
+    [dir="rtl"] .scroll-top {
+      right: auto;
+      left: 1.5rem;
+    }
+
+    /* RTL */
+    [dir="rtl"] {
+      font-family: 'Noto Sans Arabic', 'Barlow', sans-serif;
+    }
+
+    [dir="rtl"] .back-link {
+      flex-direction: row-reverse;
+    }
+
+    [dir="rtl"] .back-link span:first-child {
+      display: inline-block;
+      transform: scaleX(-1);
+    }
+
+    [dir="rtl"] .nav-join {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] .logo {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] .lang-switch {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] .toggle-label {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] .plan-name {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] .plan-features li {
+      padding-left: 0;
+      padding-right: 1.5rem;
+    }
+
+    [dir="rtl"] .plan-features li::before {
+      left: auto;
+      right: 0;
+      content: '<';
+    }
+
+    [dir="rtl"] .plan-btn {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] .equip-item {
+      border-left: 2px solid var(--mid-gray);
+      border-right: 5px solid var(--yellow);
+    }
+
+    [dir="rtl"] .equip-item:hover {
+      border-right-width: 10px;
+      transform: translateX(-6px);
+    }
+
+    [dir="rtl"] .equip-visual-text {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] .coach-spec {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] .visit-row-content h4 {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] .join-block button {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] .footer-logo {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] .btn-yellow,
+    [dir="rtl"] .btn-outline {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] .hero-badge {
+      letter-spacing: 1px;
+    }
+
+    [dir="rtl"] .close-modal {
+      right: auto;
+      left: 1.5rem;
+    }
+
+    [dir="rtl"] .hero-sub {
+      border-left: none;
+      border-right: 3px solid var(--orange);
+      padding-left: 0;
+      padding-right: 1.2rem;
+    }
+
+    [dir="rtl"] h1 {
+      letter-spacing: 0;
+    }
+
+    @media (max-width: 900px) {
+      nav {
+        padding: 1.2rem 1.5rem;
+      }
+
+      nav ul {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .hero {
+        padding: 8rem 1.5rem 4rem 1.5rem;
+      }
+
+      .hero-stats {
+        gap: 1.5rem;
+      }
+
+      .section,
+      .features {
+        padding: 5rem 1.5rem;
+      }
+
+      .plans-grid,
+      .coaches-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        background: transparent;
+      }
+
+      .plan {
+        border: 2px solid var(--mid-gray);
+      }
+
+      .equipment,
+      .visit {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+      }
+
+      .equip-visual {
+        aspect-ratio: 1.2;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 1.2rem;
+        text-align: center;
+        padding: 2.5rem 1.5rem;
+      }
+
+      .hero-number {
+        font-size: 50vw;
+        right: -10%;
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 10vw, 4rem);
+        letter-spacing: -1px;
+      }
+
+      .section-title {
+        font-size: clamp(1.8rem, 7vw, 2.8rem);
+      }
+
+      .hero-sub {
+        font-size: 0.9rem;
+        margin-top: 1.2rem;
+      }
+
+      .hero-btns {
+        gap: 0.8rem;
+        margin-top: 1.5rem;
+      }
+
+      .btn-yellow, .btn-outline {
+        padding: 0.85rem 1.8rem;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+      }
+
+      .hero-stats {
+        gap: 1.5rem;
+        margin-top: 2rem;
+        padding-top: 1.2rem;
+      }
+
+      .h-stat-num {
+        font-size: 2.2rem;
+      }
+
+      .features {
+        padding: 1.5rem;
+        gap: 2rem;
+        transform: none;
+      }
+
+      .feature {
+        transform: none;
+      }
+
+      .plan {
+        padding: 2.5rem 1.5rem;
+      }
+
+      .plan-name {
+        font-size: 1.4rem;
+      }
+
+      .plan-price {
+        font-size: 3rem;
+      }
+
+      .coach-card {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: clamp(1.8rem, 9vw, 2.5rem);
+      }
+
+      .section-title {
+        font-size: clamp(1.5rem, 6vw, 2.2rem);
+      }
+
+      .hero {
+        padding: 6rem 1rem 3rem 1rem;
+      }
+
+      .section {
+        padding: 3.5rem 1rem;
+      }
+
+      .hero-badge {
+        font-size: 0.7rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .btn-yellow, .btn-outline {
+        width: 100%;
+        text-align: center;
+      }
+
+      .pricing-toggle-container {
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+
+      nav {
+        padding: 1rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+
+      .scroll-top {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav id="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="back-link"><span>←</span> <span data-i18n="backToPortfolio">Back to
+          Portfolio</span></a>
+      <div class="logo"><span>24</span> GYM</div>
+    </div>
+    <ul role="menubar">
+      <li role="none"><a href="#plans" role="menuitem" data-i18n="navPlans">Plans</a></li>
+      <li role="none"><a href="#equipment" role="menuitem" data-i18n="navEquipment">Equipment</a></li>
+      <li role="none"><a href="#coaches" role="menuitem" data-i18n="navCoaches">Coaches</a></li>
+      <li role="none"><a href="#visit" class="nav-join open-booking-trigger" role="menuitem" data-i18n="navJoin">Join
+          Now</a></li>
+    </ul>
+    <div class="nav-right">
+      <button id="lang-switch" class="lang-switch" type="button">العربية</button>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu" aria-expanded="false" type="button">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu-drawer" id="mobile-menu-drawer" role="dialog" aria-label="Mobile navigation"
+    aria-hidden="true">
+    <ul role="menubar">
+      <li role="none"><a href="#plans" role="menuitem" data-i18n="navPlans">Plans</a></li>
+      <li role="none"><a href="#equipment" role="menuitem" data-i18n="navEquipment">Equipment</a></li>
+      <li role="none"><a href="#coaches" role="menuitem" data-i18n="navCoaches">Coaches</a></li>
+      <li role="none"><a href="#visit" class="open-booking-trigger" role="menuitem" data-i18n="navJoin">Join Now</a>
+      </li>
+    </ul>
+  </div>
+
+  <main id="main">
+
+    <section class="hero reveal" aria-labelledby="hero-heading">
+      <div class="hero-bg"></div>
+      <div class="hero-grid-lines"></div>
+      <div class="hero-number" aria-hidden="true">24</div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="pulse" aria-hidden="true"></span>
+          <span data-i18n="heroBadge">⚡ Open 24 Hours · Gardenia City Mall</span>
+        </div>
+        <h1 id="hero-heading" data-i18n="heroTitle">Train.<br><span>Anytime.</span></h1>
+        <p class="hero-sub" data-i18n="heroSub">Nasr City's round-the-clock gym at Gardenia City Mall. Full equipment,
+          certified coaches, nutrition support, and no excuses.</p>
+        <div class="hero-btns">
+          <button class="btn-yellow open-booking-trigger" type="button" data-i18n="btnJoin">Join Now</button>
+          <button class="btn-outline scroll-to-plans" type="button" data-i18n="btnPlans">View Plans</button>
+        </div>
+        <div class="hero-stats" role="list">
+          <div role="listitem">
+            <div class="h-stat-num">24H</div>
+            <div class="h-stat-label" data-i18n="statAlwaysOpen">Always open</div>
+          </div>
+          <div role="listitem">
+            <div class="h-stat-num">50+</div>
+            <div class="h-stat-label" data-i18n="statMachines">Machines</div>
+          </div>
+          <div role="listitem">
+            <div class="h-stat-num">10+</div>
+            <div class="h-stat-label" data-i18n="statCoaches">Coaches</div>
+          </div>
+          <div role="listitem">
+            <div class="h-stat-num">3mo</div>
+            <div class="h-stat-label" data-i18n="statMinPlan">Min. plan</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="features" role="list">
+      <div class="feature" role="listitem"><span class="feature-icon" aria-hidden="true">💪</span><span
+          class="feature-text" data-i18n="featWeights">Free weights</span></div>
+      <div class="feat-div" aria-hidden="true"></div>
+      <div class="feature" role="listitem"><span class="feature-icon" aria-hidden="true">🏃</span><span
+          class="feature-text" data-i18n="featCardio">Cardio zone</span></div>
+      <div class="feat-div" aria-hidden="true"></div>
+      <div class="feature" role="listitem"><span class="feature-icon" aria-hidden="true">🥤</span><span
+          class="feature-text" data-i18n="featProtein">Protein bar</span></div>
+      <div class="feat-div" aria-hidden="true"></div>
+      <div class="feature" role="listitem"><span class="feature-icon" aria-hidden="true">👨‍⚕️</span><span
+          class="feature-text" data-i18n="featNutrition">Nutrition doctor</span></div>
+      <div class="feat-div" aria-hidden="true"></div>
+      <div class="feature" role="listitem"><span class="feature-icon" aria-hidden="true">☕</span><span
+          class="feature-text" data-i18n="featCoffee">Coffee station</span></div>
+      <div class="feat-div" aria-hidden="true"></div>
+      <div class="feature" role="listitem"><span class="feature-icon" aria-hidden="true">🌙</span><span
+          class="feature-text" data-i18n="featNight">Night sessions</span></div>
+    </div>
+
+    <section id="plans" class="section plans reveal" aria-labelledby="plans-heading">
+      <p class="section-label" data-i18n="plansLabel">Membership</p>
+      <h2 class="section-title" id="plans-heading" data-i18n="plansTitle">Choose<br>your plan</h2>
+
+      <div class="pricing-toggle-container">
+        <span class="toggle-label active" id="billing-monthly" data-i18n="monthly">Monthly</span>
+        <label class="switch" for="pricing-checkbox">
+          <input type="checkbox" id="pricing-checkbox" aria-label="Toggle yearly billing">
+          <span class="slider"></span>
+        </label>
+        <span class="toggle-label" id="billing-yearly" data-i18n="yearly">Yearly (Save 20%)</span>
+      </div>
+
+      <div class="plans-grid" role="list">
+        <article class="plan" role="listitem">
+          <div class="plan-name" data-i18n="planBasicName">Basic</div>
+          <div class="plan-price"><span id="price-basic">EGP 750</span> <span data-i18n="priceMonth">/ month</span>
+          </div>
+          <div class="plan-desc" data-i18n="planBasicDesc">Gym floor access, locker room, and standard equipment.
+            Minimum 3 months.</div>
+          <ul class="plan-features">
+            <li data-i18n="planBasicF1">Full gym floor access</li>
+            <li data-i18n="planBasicF2">Locker room & showers</li>
+            <li data-i18n="planBasicF3">All cardio machines</li>
+            <li data-i18n="planBasicF4">Free weights area</li>
+          </ul>
+          <button class="plan-btn open-booking-trigger" type="button" data-plan="basic" data-i18n="planBasicBtn">Get
+            Started</button>
+        </article>
+        <article class="plan" role="listitem">
+          <div class="plan-name" data-i18n="planProName">Pro</div>
+          <div class="plan-price"><span id="price-pro">EGP 1,100</span> <span data-i18n="priceMonth">/ month</span>
+          </div>
+          <div class="plan-desc" data-i18n="planProDesc">Everything in Basic plus personal training sessions and
+            nutrition guidance. Most popular.</div>
+          <ul class="plan-features">
+            <li data-i18n="planProF1">Full gym floor access</li>
+            <li data-i18n="planProF2">4 PT sessions per month</li>
+            <li data-i18n="planProF3">Nutrition consultation</li>
+            <li data-i18n="planProF4">Protein supplements discount</li>
+            <li data-i18n="planProF5">Guest pass (1/month)</li>
+          </ul>
+          <button class="plan-btn open-booking-trigger" type="button" data-plan="pro" data-i18n="planProBtn">Join
+            Pro</button>
+        </article>
+        <article class="plan" role="listitem">
+          <div class="plan-name" data-i18n="planEliteName">Elite</div>
+          <div class="plan-price"><span id="price-elite">EGP 1,600</span> <span data-i18n="priceMonth">/ month</span>
+          </div>
+          <div class="plan-desc" data-i18n="planEliteDesc">Full access, unlimited PT, and dedicated coach assignment. No
+            compromises.</div>
+          <ul class="plan-features">
+            <li data-i18n="planEliteF1">Unlimited PT sessions</li>
+            <li data-i18n="planEliteF2">Dedicated coach</li>
+            <li data-i18n="planEliteF3">Meal planning service</li>
+            <li data-i18n="planEliteF4">Priority equipment booking</li>
+            <li data-i18n="planEliteF5">Guest passes (3/month)</li>
+          </ul>
+          <button class="plan-btn open-booking-trigger" type="button" data-plan="elite" data-i18n="planEliteBtn">Go
+            Elite</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="equipment" class="section reveal" aria-labelledby="equipment-heading">
+      <div class="equipment">
+        <div>
+          <p class="section-label" data-i18n="equipLabel">The floor</p>
+          <h2 class="section-title" id="equipment-heading" data-i18n="equipTitle">Pro-grade<br>equipment</h2>
+          <div class="equipment-list" role="list">
+            <div class="equip-item" role="listitem">
+              <div class="equip-name" data-i18n="eq1Name">Free Weights</div>
+              <div class="equip-desc" data-i18n="eq1Desc">Full dumbbell & barbell range</div>
+            </div>
+            <div class="equip-item" role="listitem">
+              <div class="equip-name" data-i18n="eq2Name">Treadmills</div>
+              <div class="equip-desc" data-i18n="eq2Desc">12 commercial-grade units</div>
+            </div>
+            <div class="equip-item" role="listitem">
+              <div class="equip-name" data-i18n="eq3Name">Cable Machines</div>
+              <div class="equip-desc" data-i18n="eq3Desc">Functional trainer systems</div>
+            </div>
+            <div class="equip-item" role="listitem">
+              <div class="equip-name" data-i18n="eq4Name">Squat Racks</div>
+              <div class="equip-desc" data-i18n="eq4Desc">Power racks with spotters</div>
+            </div>
+            <div class="equip-item" role="listitem">
+              <div class="equip-name" data-i18n="eq5Name">Bikes & Rowing</div>
+              <div class="equip-desc" data-i18n="eq5Desc">Full cardio zone</div>
+            </div>
+            <div class="equip-item" role="listitem">
+              <div class="equip-name" data-i18n="eq6Name">Smith Machine</div>
+              <div class="equip-desc" data-i18n="eq6Desc">Smith-guided safety barbell</div>
+            </div>
+          </div>
+        </div>
+        <div class="equip-visual" aria-hidden="true">
+          <div class="equip-visual-num">50</div>
+          <div class="equip-visual-text" data-i18n="equipVisualText">Machines on the floor</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="coaches" class="section coaches reveal" aria-labelledby="coaches-heading">
+      <p class="section-label" data-i18n="coachesLabel">Your coaches</p>
+      <h2 class="section-title" id="coaches-heading" data-i18n="coachesTitle">Expert trainers,<br>real results</h2>
+      <div class="coaches-grid" role="list">
+        <article class="coach" role="listitem">
+          <div class="coach-icon" aria-hidden="true">🏋️</div>
+          <div class="coach-name" data-i18n="c1Name">Youssef Hisham</div>
+          <div class="coach-spec" data-i18n="c1Spec">Strength & Conditioning</div>
+          <div class="coach-hours" data-i18n="c1Hours">Available 6:00 AM – 2:00 PM · Highly rated by members</div>
+        </article>
+        <article class="coach" role="listitem">
+          <div class="coach-icon" aria-hidden="true">🥊</div>
+          <div class="coach-name" data-i18n="c2Name">Fitness Team</div>
+          <div class="coach-spec" data-i18n="c2Spec">Cardio & HIIT</div>
+          <div class="coach-hours" data-i18n="c2Hours">Available across all shifts · Group & personal sessions</div>
+        </article>
+        <article class="coach" role="listitem">
+          <div class="coach-icon" aria-hidden="true">🥗</div>
+          <div class="coach-name" data-i18n="c3Name">Nutrition Doctor</div>
+          <div class="coach-spec" data-i18n="c3Spec">Diet & Supplementation</div>
+          <div class="coach-hours" data-i18n="c3Hours">On-site consultations · Meal planning for all goals</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="visit" class="section reveal" aria-labelledby="visit-heading">
+      <div class="visit">
+        <div>
+          <p class="section-label" data-i18n="visitLabel">Find us</p>
+          <h2 class="section-title" id="visit-heading" data-i18n="visitTitle">Always<br>open</h2>
+          <div class="visit-info">
+            <div class="visit-row">
+              <span class="visit-row-icon" aria-hidden="true">🕐</span>
+              <div class="visit-row-content">
+                <h4 data-i18n="visitH1">Hours</h4>
+                <p data-i18n="visitP1">Open 24 hours, every day — train at midnight, at 5am, or whenever.</p>
+              </div>
+            </div>
+            <div class="visit-row">
+              <span class="visit-row-icon" aria-hidden="true">📍</span>
+              <div class="visit-row-content">
+                <h4 data-i18n="visitH2">Location</h4>
+                <p data-i18n="visitP2">Gardenia City Mall, Nasr City, Cairo Governorate 4455010</p>
+              </div>
+            </div>
+            <div class="visit-row">
+              <span class="visit-row-icon" aria-hidden="true">🚗</span>
+              <div class="visit-row-content">
+                <h4 data-i18n="visitH3">Parking</h4>
+                <p data-i18n="visitP3">Free parking available at Gardenia City Mall at all hours.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="join-block">
+          <h3 data-i18n="joinBlockTitle">Start<br>Today.</h3>
+          <p data-i18n="joinBlockDesc">Walk in any time. A team member will take you through the facilities and set you
+            up with the right plan for your goals.</p>
+          <button class="open-booking-trigger" type="button" data-i18n="joinBlockBtn">Join Now ↗</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-logo">24 GYM</div>
+    <div class="footer-copy" data-i18n="footerCopy">© 2025 24 Gym · Gardenia City Mall, Nasr City, Cairo</div>
+  </footer>
+
+  <button class="scroll-top" id="scroll-top" type="button" aria-label="Back to top">↑</button>
+
+  <div id="booking-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"
+    aria-hidden="true">
+    <div class="modal-content">
+      <button class="close-modal" id="close-modal" type="button" aria-label="Close booking form">&times;</button>
+      <div id="booking-form-container">
+        <h3 id="modal-title"
+          style="font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 900; letter-spacing: 1px;"
+          data-i18n="modalTitle">Start Your Journey</h3>
+        <p style="font-size: 0.85rem; color: var(--light-gray); margin-top: 0.5rem;" data-i18n="modalDesc">Fill out this
+          quick form and our coaches will set you up.</p>
+        <form id="gym-booking-form" class="modal-form" novalidate>
+          <label for="booking-name" data-i18n="labelName">Your Name</label>
+          <input type="text" id="booking-name" required placeholder="Your Name" autocomplete="name">
+          <label for="booking-phone" data-i18n="labelPhone">Phone Number</label>
+          <input type="tel" id="booking-phone" required placeholder="Phone Number" autocomplete="tel" inputmode="tel"
+            pattern="[0-9+\s]*">
+          <label for="booking-plan" data-i18n="labelPlan">Select Plan</label>
+          <select id="booking-plan">
+            <option value="basic" data-i18n="planBasicOption">Basic Plan — EGP 750/mo</option>
+            <option value="pro" selected data-i18n="planProOption">Pro Plan — EGP 1,100/mo</option>
+            <option value="elite" data-i18n="planEliteOption">Elite Plan — EGP 1,600/mo</option>
+          </select>
+          <button type="submit" class="btn-yellow" data-i18n="modalSubmit">Request Access</button>
+        </form>
+      </div>
+      <div id="booking-success-container" class="success-container hidden">
+        <div class="success-icon" aria-hidden="true">✓</div>
+        <h3 style="font-family: 'Barlow Condensed', sans-serif; font-size: 2rem; font-weight: 900;"
+          data-i18n="successTitle">Registration Received</h3>
+        <p style="font-size: 0.85rem; color: var(--light-gray); margin-bottom: 1rem;" data-i18n="successDesc">Thank you!
+          We've received your request and will contact you within the hour.</p>
+        <button id="success-close-btn" class="btn-outline" type="button" data-i18n="successClose">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const T = {
+      en: {
+        docTitle: "24 GYM — Gardenia City Mall",
+        backToPortfolio: "Back to Portfolio",
+        navPlans: "Plans",
+        navEquipment: "Equipment",
+        navCoaches: "Coaches",
+        navJoin: "Join Now",
+        heroBadge: "⚡ Open 24 Hours · Gardenia City Mall",
+        heroTitle: "Train.<br><span>Anytime.</span>",
+        heroSub: "Nasr City's round-the-clock gym at Gardenia City Mall. Full equipment, certified coaches, nutrition support, and no excuses.",
+        btnJoin: "Join Now",
+        btnPlans: "View Plans",
+        statAlwaysOpen: "Always open",
+        statMachines: "Machines",
+        statCoaches: "Coaches",
+        statMinPlan: "Min. plan",
+        featWeights: "Free weights",
+        featCardio: "Cardio zone",
+        featProtein: "Protein bar",
+        featNutrition: "Nutrition doctor",
+        featCoffee: "Coffee station",
+        featNight: "Night sessions",
+        plansLabel: "Membership",
+        plansTitle: "Choose<br>your plan",
+        monthly: "Monthly",
+        yearly: "Yearly (Save 20%)",
+        priceMonth: "/ month",
+        planBasicName: "Basic",
+        planBasicDesc: "Gym floor access, locker room, and standard equipment. Minimum 3 months.",
+        planBasicF1: "Full gym floor access",
+        planBasicF2: "Locker room & showers",
+        planBasicF3: "All cardio machines",
+        planBasicF4: "Free weights area",
+        planBasicBtn: "Get Started",
+        planProName: "Pro",
+        planProDesc: "Everything in Basic plus personal training sessions and nutrition guidance. Most popular.",
+        planProF1: "Full gym floor access",
+        planProF2: "4 PT sessions per month",
+        planProF3: "Nutrition consultation",
+        planProF4: "Protein supplements discount",
+        planProF5: "Guest pass (1/month)",
+        planProBtn: "Join Pro",
+        planEliteName: "Elite",
+        planEliteDesc: "Full access, unlimited PT, and dedicated coach assignment. No compromises.",
+        planEliteF1: "Unlimited PT sessions",
+        planEliteF2: "Dedicated coach",
+        planEliteF3: "Meal planning service",
+        planEliteF4: "Priority equipment booking",
+        planEliteF5: "Guest passes (3/month)",
+        planEliteBtn: "Go Elite",
+        equipLabel: "The floor",
+        equipTitle: "Pro-grade<br>equipment",
+        eq1Name: "Free Weights",
+        eq1Desc: "Full dumbbell & barbell range",
+        eq2Name: "Treadmills",
+        eq2Desc: "12 commercial-grade units",
+        eq3Name: "Cable Machines",
+        eq3Desc: "Functional trainer systems",
+        eq4Name: "Squat Racks",
+        eq4Desc: "Power racks with spotters",
+        eq5Name: "Bikes & Rowing",
+        eq5Desc: "Full cardio zone",
+        eq6Name: "Smith Machine",
+        eq6Desc: "Smith-guided safety barbell",
+        equipVisualText: "Machines on the floor",
+        coachesLabel: "Your coaches",
+        coachesTitle: "Expert trainers,<br>real results",
+        c1Name: "Youssef Hisham",
+        c1Spec: "Strength & Conditioning",
+        c1Hours: "Available 6:00 AM – 2:00 PM · Highly rated by members",
+        c2Name: "Fitness Team",
+        c2Spec: "Cardio & HIIT",
+        c2Hours: "Available across all shifts · Group & personal sessions",
+        c3Name: "Nutrition Doctor",
+        c3Spec: "Diet & Supplementation",
+        c3Hours: "On-site consultations · Meal planning for all goals",
+        visitLabel: "Find us",
+        visitTitle: "Always<br>open",
+        visitH1: "Hours",
+        visitP1: "Open 24 hours, every day — train at midnight, at 5am, or whenever.",
+        visitH2: "Location",
+        visitP2: "Gardenia City Mall, Nasr City, Cairo Governorate 4455010",
+        visitH3: "Parking",
+        visitP3: "Free parking available at Gardenia City Mall at all hours.",
+        joinBlockTitle: "Start<br>Today.",
+        joinBlockDesc: "Walk in any time. A team member will take you through the facilities and set you up with the right plan for your goals.",
+        joinBlockBtn: "Join Now ↗",
+        footerCopy: "© 2025 24 Gym · Gardenia City Mall, Nasr City, Cairo",
+        modalTitle: "Start Your Journey",
+        modalDesc: "Fill out this quick form and our coaches will set you up.",
+        labelName: "Your Name",
+        labelPhone: "Phone Number",
+        labelPlan: "Select Plan",
+        planBasicOption: "Basic Plan — EGP 750/mo",
+        planProOption: "Pro Plan — EGP 1,100/mo",
+        planEliteOption: "Elite Plan — EGP 1,600/mo",
+        modalSubmit: "Request Access",
+        successTitle: "Registration Received",
+        successDesc: "Thank you! We've received your request and will contact you within the hour.",
+        successClose: "Close",
+        placeholderName: "Your Name",
+        placeholderPhone: "Phone Number"
+      },
+      ar: {
+        docTitle: "جيم ٢٤ — جاردينيا سيتي مول",
+        backToPortfolio: "العودة للمعرض",
+        navPlans: "الخطط",
+        navEquipment: "المعدات",
+        navCoaches: "المدربون",
+        navJoin: "اشترك الآن",
+        heroBadge: "⚡ مفتوح ٢٤ ساعة · جاردينيا سيتي مول",
+        heroTitle: "تدرّب.<br><span>في أي وقت.</span>",
+        heroSub: "نادي رياضي مفتوح على مدار الساعة في مدينة نصر بجاردينيا سيتي مول. أجهزة كاملة، مدربون معتمدون، دعم تغذية، وبدون أعذار.",
+        btnJoin: "اشترك الآن",
+        btnPlans: "عرض الخطط",
+        statAlwaysOpen: "مفتوح دائماً",
+        statMachines: "أجهزة متكاملة",
+        statCoaches: "مدربين خبراء",
+        statMinPlan: "الحد الأدنى ٣ شهور",
+        featWeights: "أوزان حرة",
+        featCardio: "منطقة كارديو",
+        featProtein: "بار بروتين",
+        featNutrition: "طبيب تغذية",
+        featCoffee: "ركن قهوة",
+        featNight: "حصص ليلية",
+        plansLabel: "العضوية",
+        plansTitle: "اختر<br>خطتك المناسبة",
+        monthly: "شهرياً",
+        yearly: "سنوياً (وفر ٢٠٪)",
+        priceMonth: "/ شهرياً",
+        planBasicName: "أساسي",
+        planBasicDesc: "دخول صالة الجيم، غرف الملابس، والمعدات القياسية. الاشتراك لا يقل عن ٣ أشهر.",
+        planBasicF1: "دخول كامل لصالة الألعاب الرياضية",
+        planBasicF2: "غرف الملابس والاستحمام",
+        planBasicF3: "استخدام أجهزة الكارديو",
+        planBasicF4: "منطقة الأوزان الحرة",
+        planBasicBtn: "ابدأ الآن",
+        planProName: "برو (احترافي)",
+        planProDesc: "كل مميزات الاشتراك الأساسي بالإضافة إلى جلسات تدريب شخصية واستشارات تغذية. الأكثر طلباً.",
+        planProF1: "دخول كامل لصالة الألعاب الرياضية",
+        planProF2: "٤ جلسات تدريب شخصية شهرياً",
+        planProF3: "استشارة أنظمة وتخطيط التغذية",
+        planProF4: "خصم خاص على مكملات البروتين",
+        planProF5: "دعوة ضيف (مرة واحدة شهرياً)",
+        planProBtn: "اشترك في برو",
+        planEliteName: "إيليت (نخبة)",
+        planEliteDesc: "دخول كامل، جلسات تدريب غير محدودة، وتعيين مدرب مخصص لمتابعة أهدافك بدقة.",
+        planEliteF1: "جلسات تدريب شخصية غير محدودة",
+        planEliteF2: "مدرب خاص مخصص لك",
+        planEliteF3: "خدمة تخطيط الوجبات اليومية",
+        planEliteF4: "أولوية حجز الأجهزة الخاصة",
+        planEliteF5: "دعوات ضيوف (٣ مرات شهرياً)",
+        planEliteBtn: "اشترك في إيليت",
+        equipLabel: "صالة الأجهزة",
+        equipTitle: "أجهزة تدريب<br>بأعلى جودة",
+        eq1Name: "الأوزان الحرة",
+        eq1Desc: "مجموعة دمبل وبارات متكاملة",
+        eq2Name: "المشايات الكهربائية",
+        eq2Desc: "١٢ جهازاً تجارياً عالي التحمل",
+        eq3Name: "أجهزة الكابلات",
+        eq3Desc: "أنظمة تدريب وظيفية متطورة",
+        eq4Name: "أقفاص الاسكوات",
+        eq4Desc: "حوامل طاقة مجهزة بوسائل الأمان",
+        eq5Name: "الدراجات والتجديف",
+        eq5Desc: "منطقة متكاملة لأجهزة الكارديو",
+        eq6Name: "جهاز سميث",
+        eq6Desc: "بار تدريب موجه بمسارات أمان",
+        equipVisualText: "جهاز رياضي في الصالة",
+        coachesLabel: "المدربون الخبراء",
+        coachesTitle: "أفضل المدربين،<br>لنتائج مضمونة",
+        c1Name: "يوسف هشام",
+        c1Spec: "القوة والياقة البدنية",
+        c1Hours: "متاح من ٦:٠٠ صباحاً – ٢:٠٠ ظهراً · تقييم ممتاز من الأعضاء",
+        c2Name: "فريق اللياقة البدنية",
+        c2Spec: "كارديو وتمارين HIIT",
+        c2Hours: "متواجدون بجميع الفترات · حصص تدريب فردية وجماعية",
+        c3Name: "طبيب التغذية المختص",
+        c3Spec: "الأنظمة الغذائية والمكملات",
+        c3Hours: "استشارات طبية بالصالة · تصميم برامج تغذية لجميع الأهداف",
+        visitLabel: "موقعنا",
+        visitTitle: "مفتوحون<br>دائماً",
+        visitH1: "مواعيد العمل",
+        visitP1: "مفتوح ٢٤ ساعة، طوال أيام الأسبوع — تدرّب ليلاً أو نهاراً.",
+        visitH2: "العنوان",
+        visitP2: "جاردينيا سيتي مول، مدينة نصر، محافظة القاهرة ٤٤٥٥٠١٠",
+        visitH3: "موقف السيارات",
+        visitP3: "مواقف سيارات مجانية متوفرة بجاردينيا سيتي مول في أي وقت.",
+        joinBlockTitle: "ابدأ<br>اليوم.",
+        joinBlockDesc: "تفضّل بزيارتنا في أي وقت. سيقوم أحد أفراد فريقنا بأخذك في جولة داخل الصالة ومساعدتك في اختيار خطتك المناسبة.",
+        joinBlockBtn: "اشترك الآن ↗",
+        footerCopy: "© ٢٠٢٥ جيم ٢٤ · جاردينيا سيتي مول، مدينة نصر، القاهرة",
+        modalTitle: "ابدأ رحلتك اليوم",
+        modalDesc: "ابدأ رحلتك بملء هذا النموذج السريع وسيتصل بك أحد مدربينا.",
+        labelName: "الاسم الكريم",
+        labelPhone: "رقم الهاتف",
+        labelPlan: "اختر الخطة",
+        planBasicOption: "الباقة الأساسية — ٧٥٠ ج.م/شهرياً",
+        planProOption: "باقة برو — ١,١٠٠ ج.م/شهرياً",
+        planEliteOption: "باقة إيليت — ١,٦٠٠ ج.م/شهرياً",
+        modalSubmit: "طلب الاشتراك",
+        successTitle: "تم استلام طلبك بنجاح",
+        successDesc: "شكراً لك! لقد تلقينا طلبك وسيتصل بك أحد ممثلينا خلال ساعة واحدة.",
+        successClose: "إغلاق",
+        placeholderName: "الاسم الكريم",
+        placeholderPhone: "رقم الهاتف"
+      }
+    };
+
+    const prices = {
+      monthly: { basic: "750", pro: "1,100", elite: "1,600" },
+      yearly: { basic: "600", pro: "880", elite: "1,280" }
+    };
+    const pricesAr = {
+      monthly: { basic: "٧٥٠", pro: "١,١٠٠", elite: "١,٦٠٠" },
+      yearly: { basic: "٦٠٠", pro: "٨٨٠", elite: "١,٢٨٠" }
+    };
+
+    let lang = "en";
+    let billingCycle = "monthly";
+
+    function setLang(l) {
+      lang = l;
+      const html = document.documentElement;
+      html.setAttribute("lang", l);
+      html.setAttribute("dir", l === "ar" ? "rtl" : "ltr");
+
+      // Toggle button label
+      document.getElementById("lang-switch").textContent = l === "en" ? "العربية" : "English";
+
+      // Text translations
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (T[l][key]) {
+          el.innerHTML = T[l][key];
+        }
+      });
+
+      // Form placeholders
+      const nameInput = document.getElementById("booking-name");
+      const phoneInput = document.getElementById("booking-phone");
+      if (nameInput) nameInput.placeholder = T[l].placeholderName;
+      if (phoneInput) phoneInput.placeholder = T[l].placeholderPhone;
+
+      // Update prices display
+      updatePricesDisplay();
+
+      // Save language preference
+      try { localStorage.setItem("lang", l); } catch (e) { }
+    }
+
+    function updatePricesDisplay() {
+      const cycleData = lang === "ar" ? pricesAr[billingCycle] : prices[billingCycle];
+      const currency = lang === "ar" ? "ج.م " : "EGP ";
+
+      document.getElementById("price-basic").textContent = currency + cycleData.basic;
+      document.getElementById("price-pro").textContent = currency + cycleData.pro;
+      document.getElementById("price-elite").textContent = currency + cycleData.elite;
+    }
+
+    /* ==============================================================
+       LANGUAGE TOGGLE INITIALIZATION
+       ============================================================== */
+    document.getElementById("lang-switch").addEventListener("click", () => {
+      setLang(lang === "en" ? "ar" : "en");
+    });
+
+    // Check saved language on load
+    try {
+      const savedLang = localStorage.getItem("lang");
+      if (savedLang === "ar" || savedLang === "en") {
+        setLang(savedLang);
+      } else {
+        setLang("en");
+      }
+    } catch (e) {
+      setLang("en");
+    }
+
+    /* ==============================================================
+       PRICING TOGGLE EVENT
+       ============================================================== */
+    const pricingCheckbox = document.getElementById("pricing-checkbox");
+    const labelMonthly = document.getElementById("billing-monthly");
+    const labelYearly = document.getElementById("billing-yearly");
+
+    pricingCheckbox.addEventListener("change", (e) => {
+      billingCycle = e.target.checked ? "yearly" : "monthly";
+      if (e.target.checked) {
+        labelYearly.classList.add("active");
+        labelMonthly.classList.remove("active");
+      } else {
+        labelMonthly.classList.add("active");
+        labelYearly.classList.remove("active");
+      }
+      updatePricesDisplay();
+    });
+
+    /* ==============================================================
+       MOBILE DRAWER NAVIGATION
+       ============================================================== */
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenuDrawer = document.getElementById("mobile-menu-drawer");
+
+    menuToggle.addEventListener("click", () => {
+      const expanded = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!expanded));
+      menuToggle.classList.toggle("active");
+      mobileMenuDrawer.classList.toggle("active");
+      mobileMenuDrawer.setAttribute("aria-hidden", String(expanded));
+      document.body.style.overflow = !expanded ? "hidden" : "";
+    });
+
+    mobileMenuDrawer.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.classList.remove("active");
+        mobileMenuDrawer.classList.remove("active");
+        mobileMenuDrawer.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+      });
+    });
+
+    /* ==============================================================
+       SCROLL TO PLANS
+       ============================================================== */
+    const scrollBtn = document.querySelector(".scroll-to-plans");
+    if (scrollBtn) {
+      scrollBtn.addEventListener("click", () => {
+        document.getElementById("plans").scrollIntoView({ behavior: "smooth" });
+      });
+    }
+
+    /* ==============================================================
+       SCROLL REVEAL OBSERVER
+       ============================================================= */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+    /* ==============================================================
+       MODAL CONTROLLER
+       ============================================================== */
+    const modal = document.getElementById("booking-modal");
+    const closeBtn = document.getElementById("close-modal");
+    const successCloseBtn = document.getElementById("success-close-btn");
+    const bookingForm = document.getElementById("gym-booking-form");
+    const formContainer = document.getElementById("booking-form-container");
+    const successContainer = document.getElementById("booking-success-container");
+    const selectPlan = document.getElementById("booking-plan");
+
+    // Open triggers
+    document.querySelectorAll(".open-booking-trigger").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        // Select the correct plan if clicked from plan cards
+        const selectedPlan = btn.getAttribute("data-plan");
+        if (selectedPlan && selectPlan) {
+          selectPlan.value = selectedPlan;
+        }
+
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
+      });
+    });
+
+    // Close triggers
+    function closeModal() {
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+      // Reset state after transition
+      setTimeout(() => {
+        formContainer.classList.remove("hidden");
+        successContainer.classList.add("hidden");
+        bookingForm.reset();
+      }, 300);
+    }
+
+    closeBtn.addEventListener("click", closeModal);
+    successCloseBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Form submit handling
+    bookingForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      formContainer.classList.add("hidden");
+      successContainer.classList.remove("hidden");
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="docTitle">BOKHAREST Black Café — Gardenia City Mall</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --ink: #121212;
+    --paper: #FBF9F6;
+    --smoke: #E5E1DA;
+    --dark-smoke: #B5AFA4;
+    --sage: #6E7E73;
+    --rust: #965842;
+    --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  body { background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+  /* Navigation Editorial */
+  nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 2rem 5rem; position: sticky; top: 0; background: rgba(251, 249, 246, 0.95);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 100;
+    border-bottom: 1px solid var(--ink);
+  }
+  .nav-left { display: flex; align-items: center; gap: 3rem; }
+  .back-link {
+    color: var(--ink); text-decoration: none; font-size: 0.75rem; font-weight: 500;
+    opacity: 0.6; transition: all 0.3s; text-transform: uppercase;
+    letter-spacing: 2px; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .back-link:hover { opacity: 1; color: var(--rust); }
+  
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; letter-spacing: 5px; text-transform: uppercase; color: var(--ink); font-weight: 400; }
+  
+  nav ul { list-style: none; display: flex; gap: 2.5rem; align-items: center; }
+  nav a { color: var(--ink); text-decoration: none; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; font-weight: 500; transition: all 0.3s var(--ease); }
+  nav a:hover { opacity: 1; color: var(--sage); }
+  .nav-reserve { opacity: 1 !important; border-bottom: 2px solid var(--ink); padding-bottom: 2px; }
+
+  .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+
+  /* Lang Switcher */
+  .lang-switch {
+    background: transparent; border: 1px solid var(--ink); color: var(--ink);
+    padding: 0.5rem 1.2rem; font-family: 'Inter', sans-serif; font-size: 0.7rem;
+    font-weight: 500; letter-spacing: 1px; cursor: pointer; text-transform: uppercase;
+    transition: all 0.3s var(--ease);
+  }
+  .lang-switch:hover { background: var(--ink); color: var(--paper); }
+
+  /* Mobile Toggle */
+  .menu-toggle {
+    display: none; background: transparent; border: none; cursor: pointer;
+    flex-direction: column; justify-content: space-between; width: 22px; height: 16px;
+    z-index: 110;
+  }
+  .menu-toggle span {
+    display: block; width: 100%; height: 1px; background: var(--ink);
+    transition: all 0.2s var(--ease);
+  }
+  .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(2px, 1px); background: var(--ink); }
+  .menu-toggle.active span:nth-child(2) { opacity: 0; }
+  .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(2px, -2px); background: var(--ink); }
+
+  /* Mobile Drawer */
+  .mobile-menu-drawer {
+    position: fixed; inset: 0; background: var(--paper); z-index: 90;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 2rem; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-left: 1px solid var(--ink);
+  }
+  .mobile-menu-drawer.active { transform: translateX(0); }
+  .mobile-menu-drawer ul {
+    list-style: none; display: flex; flex-direction: column; gap: 2rem; align-items: center;
+    margin-bottom: 2rem;
+  }
+  .mobile-menu-drawer a {
+    color: var(--ink); text-decoration: none; font-size: 2rem; font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 2px; text-transform: uppercase; opacity: 0.8;
+  }
+  .mobile-menu-drawer a:hover { opacity: 1; color: var(--sage); }
+
+  /* Hero Section Split Editorial */
+  .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 95vh; border-bottom: 1px solid var(--ink); }
+  
+  .hero-left {
+    background: var(--ink); display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 6rem 5rem; position: relative; overflow: hidden;
+  }
+  .hero-left::before {
+    content: 'B'; font-family: 'Cormorant Garamond', serif; font-size: 28rem; font-weight: 300;
+    color: #1a1a1a; position: absolute; top: -4rem; left: -2rem; line-height: 1; pointer-events: none;
+  }
+  .hero-tag { font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; color: var(--sage); margin-bottom: 2.5rem; font-weight: 500; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 6vw, 6rem); font-weight: 300; color: var(--paper); line-height: 1.05; position: relative; z-index: 2; }
+  .hero-title em { font-style: italic; color: var(--sage); font-weight: 300; }
+  
+  .hero-right { display: flex; flex-direction: column; justify-content: space-between; padding: 6rem 5rem; background: var(--paper); border-left: 1px solid var(--ink); }
+  .hero-right-top p { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-style: italic; color: var(--ink); line-height: 1.8; opacity: 0.85; max-width: 400px; }
+  
+  .hero-right-bottom { display: flex; flex-direction: column; gap: 2rem; margin-top: 4rem; }
+  .hero-right-bottom h3 { font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase; color: var(--rust); font-weight: 600; }
+  .hero-right-bottom p { font-size: 0.9rem; color: var(--ink); opacity: 0.75; line-height: 1.8; max-width: 440px; }
+  
+  .cta-row { display: flex; gap: 1.5rem; margin-top: 0.5rem; }
+  .btn-dark { background: var(--ink); color: var(--paper); padding: 1rem 2.5rem; border: 1px solid var(--ink); cursor: pointer; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; font-family: 'Inter', sans-serif; font-weight: 500; transition: all 0.3s; }
+  .btn-dark:hover { background: transparent; color: var(--ink); }
+  .btn-ghost { background: transparent; color: var(--ink); padding: 1rem 2.5rem; border: 1px solid var(--ink); cursor: pointer; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; font-family: 'Inter', sans-serif; font-weight: 500; transition: all 0.3s; }
+  .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+
+  /* Stats Strip */
+  .strip { background: var(--paper); padding: 2.2rem 5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--ink); }
+  .strip-item { text-align: center; flex: 1; }
+  .strip-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--ink); font-weight: 300; }
+  .strip-label { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: var(--sage); margin-top: 0.2rem; font-weight: 500; }
+  .strip-div { width: 1px; height: 50px; background: var(--ink); }
+
+  /* Menu Editorial Columns */
+  .menu-section { padding: 8rem 5rem; }
+  .menu-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5rem; border-bottom: 1px solid var(--ink); padding-bottom: 2.5rem; }
+  .menu-eyebrow { font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase; color: var(--sage); margin-bottom: 0.5rem; font-weight: 500; }
+  .menu-title { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300; line-height: 0.95; }
+  .menu-subtitle { font-size: 0.85rem; color: var(--ink); opacity: 0.6; max-width: 280px; line-height: 1.8; }
+  
+  .menu-items { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .menu-col { border-right: 1px solid var(--ink); padding: 3rem 2.5rem 3rem 0; }
+  .menu-col:first-child { padding-left: 0; }
+  .menu-col:last-child { border-right: none; padding-right: 0; padding-left: 2.5rem; }
+  .menu-col:nth-child(2) { padding: 3rem 2.5rem; }
+  .col-title { font-size: 0.75rem; letter-spacing: 5px; text-transform: uppercase; color: var(--rust); margin-bottom: 2.5rem; font-weight: 600; }
+  
+  .menu-entry { padding: 1.5rem 0; border-bottom: 1px solid var(--smoke); transition: background-color 0.2s; }
+  .menu-entry:hover { background-color: rgba(110, 126, 115, 0.04); }
+  .menu-entry:last-child { border-bottom: none; }
+  .entry-name { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 400; color: var(--ink); }
+  .entry-desc { font-size: 0.85rem; color: var(--ink); opacity: 0.6; margin-top: 0.4rem; line-height: 1.7; }
+  .entry-price { font-size: 0.8rem; letter-spacing: 2px; color: var(--rust); margin-top: 0.75rem; font-weight: 500; }
+
+  /* Experience section Typographic */
+  .experience { padding: 8rem 5rem; background: var(--ink); color: var(--paper); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .exp-eyebrow { font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; font-weight: 500; }
+  .exp-title { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300; color: var(--paper); line-height: 1.05; }
+  .exp-title em { font-style: italic; color: var(--sage); font-weight: 300; }
+  .exp-body { font-size: 0.95rem; color: var(--smoke); line-height: 1.9; margin-top: 2rem; }
+  .exp-list { list-style: none; margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.2rem; }
+  .exp-list li { font-size: 0.85rem; color: var(--smoke); padding-left: 1.5rem; position: relative; letter-spacing: 1px; font-weight: 400; }
+  .exp-list li::before { content: '—'; position: absolute; left: 0; color: var(--sage); }
+
+  /* Typographic Underline Tabs */
+  .exp-visual-tabs { display: flex; flex-direction: column; gap: 2rem; width: 100%; }
+  .tab-triggers { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(229, 225, 218, 0.15); padding-bottom: 0.5rem; }
+  .tab-trigger {
+    background: transparent; border: none; padding: 0.8rem 0; color: var(--paper);
+    font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; cursor: pointer;
+    transition: all 0.3s var(--ease); text-align: center; opacity: 0.5; font-weight: 300;
+  }
+  .tab-trigger.active, .tab-trigger:hover {
+    opacity: 1; color: var(--paper); border-bottom: 2px solid var(--sage);
+  }
+  .tab-content-box {
+    background: rgba(255,255,255,0.03); padding: 3.5rem 3rem; min-height: 180px;
+    display: flex; flex-direction: column; justify-content: center;
+    border: 1px solid rgba(229, 225, 218, 0.1); transition: opacity 0.3s;
+  }
+  .tab-content-box h4 {
+    font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300;
+    color: var(--paper); margin-bottom: 0.75rem;
+  }
+  .tab-content-box p {
+    font-size: 0.88rem; color: var(--smoke); line-height: 1.8;
+  }
+
+  /* Visit section */
+  .visit { padding: 8rem 5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; border-bottom: 1px solid var(--ink); }
+  .visit-title { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; line-height: 1; }
+  .visit-rows { margin-top: 2.5rem; }
+  .visit-row { display: flex; justify-content: space-between; padding: 1.4rem 0; border-bottom: 1px solid var(--smoke); }
+  .visit-label { font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: var(--ink); opacity: 0.5; font-weight: 500; }
+  .visit-val { font-size: 0.9rem; color: var(--ink); font-weight: 400; }
+  .visit-val.highlight { color: var(--sage); font-weight: 500; }
+  
+  .quote-block { background: var(--paper); border: 1px solid var(--ink); padding: 4rem; display: flex; flex-direction: column; justify-content: center; position: relative; }
+  .quote-block::before {
+    content: '“'; font-family: 'Cormorant Garamond', serif; font-size: 8rem;
+    line-height: 0; color: var(--rust); position: absolute; top: 2.5rem; left: 1.5rem; opacity: 0.15;
+  }
+  .quote-text { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-style: italic; color: var(--ink); line-height: 1.6; font-weight: 300; z-index: 2; position: relative; }
+  .quote-attr { font-size: 0.75rem; letter-spacing: 2px; color: var(--sage); margin-top: 2rem; text-transform: uppercase; font-weight: 600; }
+
+  /* Footer */
+  footer { background: var(--ink); padding: 3rem 5rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; letter-spacing: 5px; color: var(--paper); font-weight: 300; text-transform: uppercase; }
+  .footer-copy { font-size: 0.75rem; color: var(--smoke); letter-spacing: 1px; opacity: 0.5; }
+
+  /* Viewport Animations */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Reservation Modal Editorial */
+  .modal {
+    position: fixed; inset: 0; background: rgba(18, 18, 18, 0.96); display: flex;
+    justify-content: center; align-items: center; z-index: 120; opacity: 0;
+    pointer-events: none; transition: opacity 0.25s var(--ease);
+  }
+  .modal.active { opacity: 1; pointer-events: auto; }
+  .modal-content {
+    background: var(--paper); border: 1px solid var(--ink); width: 90%;
+    max-width: 480px; padding: 3.5rem 3rem; position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  }
+  .close-modal {
+    position: absolute; top: 1rem; right: 1.5rem; background: transparent;
+    border: none; color: var(--ink); font-size: 2.2rem; cursor: pointer; opacity: 0.6;
+  }
+  .close-modal:hover { opacity: 1; color: var(--rust); }
+  .modal-form { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem; }
+  .modal-form input, .modal-form select {
+    background: var(--paper); border: 1px solid var(--ink); padding: 1rem;
+    color: var(--ink); font-family: 'Inter', sans-serif; font-size: 0.9rem;
+  }
+  .modal-form input:focus, .modal-form select:focus {
+    outline: none; border-color: var(--sage);
+  }
+  .modal-form label { font-size: 0.8rem; color: var(--ink); opacity: 0.8; margin-top: 0.2rem; font-weight: 500; }
+  .modal-form button { margin-top: 0.5rem; }
+
+  .success-container {
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    gap: 1.2rem; padding: 1.5rem 0;
+  }
+  .success-icon {
+    width: 64px; height: 64px; background: var(--sage); color: var(--paper);
+    font-size: 2rem; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-weight: 300; margin-bottom: 0.5rem;
+  }
+  .hidden { display: none !important; }
+
+  /* ================================================================
+     RTL / ARABIC STYLING OVERRIDES
+     ================================================================ */
+  [dir="rtl"] {
+    font-family: 'Noto Sans Arabic', 'Inter', sans-serif;
+  }
+  [dir="rtl"] .back-link { flex-direction: row-reverse; }
+  [dir="rtl"] .back-link span:first-child { display: inline-block; transform: scaleX(-1); }
+  [dir="rtl"] .logo { letter-spacing: 2px; }
+  [dir="rtl"] .hero-left::before { left: auto; right: -3rem; }
+  [dir="rtl"] .hero-tag { letter-spacing: 1px; }
+  [dir="rtl"] .menu-eyebrow { letter-spacing: 1px; }
+  
+  [dir="rtl"] .menu-col { border-right: none; border-left: 1px solid var(--ink); padding: 3rem 0 3rem 2.5rem; }
+  [dir="rtl"] .menu-col:first-child { padding-right: 0; padding-left: 2.5rem; }
+  [dir="rtl"] .menu-col:last-child { border-left: none; padding-left: 0; padding-right: 2.5rem; }
+  [dir="rtl"] .menu-col:nth-child(2) { padding: 3rem 2.5rem; }
+  
+  [dir="rtl"] .col-title { letter-spacing: 1px; }
+  [dir="rtl"] .entry-price { letter-spacing: 0; }
+  [dir="rtl"] .exp-eyebrow { letter-spacing: 1px; }
+  [dir="rtl"] .exp-list li { padding-left: 0; padding-right: 1.5rem; }
+  [dir="rtl"] .exp-list li::before { left: auto; right: 0; content: '—'; }
+  [dir="rtl"] .tab-content-box { border-left: none; border-right: 1px solid rgba(229, 225, 218, 0.1); }
+  [dir="rtl"] .visit-label { letter-spacing: 1px; }
+  [dir="rtl"] .quote-block::before { right: 1.5rem; left: auto; }
+  [dir="rtl"] .quote-attr { letter-spacing: 0; }
+  [dir="rtl"] .footer-logo { letter-spacing: 2px; }
+  [dir="rtl"] .close-modal { right: auto; left: 1.5rem; }
+  [dir="rtl"] .lang-switch { letter-spacing: 0; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.5rem 2rem; }
+    nav ul { display: none; }
+    .menu-toggle { display: flex; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 5rem 2rem; min-height: 55vh; }
+    .hero-right { padding: 4rem 2rem; border-left: none; border-top: 1px solid var(--ink); }
+    .strip { padding: 1.5rem 2rem; flex-wrap: wrap; gap: 1rem; }
+    .strip-div { display: none; }
+    .strip-item { flex: 1 1 40%; }
+    .menu-section, .experience, .visit { padding: 5rem 2rem; }
+    .menu-items { grid-template-columns: 1fr; }
+    .menu-col { border-right: none; border-bottom: 1px solid var(--ink); padding: 0 0 2rem 0 !important; margin-bottom: 2rem; }
+    [dir="rtl"] .menu-col { border-left: none; border-bottom: 1px solid var(--ink); padding: 0 0 2rem 0 !important; margin-bottom: 2rem; }
+    .visit { grid-template-columns: 1fr; gap: 3rem; }
+    .quote-block { padding: 3rem 2rem; }
+    footer { flex-direction: column; gap: 1.2rem; text-align: center; padding: 2.5rem 2rem; }
+
+    .hero-title { font-size: clamp(2rem, 8vw, 3.5rem); }
+    .hero-left::before { font-size: 16rem; top: -2rem; left: -1rem; }
+    .hero-left { padding: 4rem 1.5rem; min-height: auto; }
+    .hero-right { padding: 4rem 1.5rem; }
+    .hero-right-top p { font-size: 1.2rem; }
+    .hero-tag { letter-spacing: 2px; }
+    .menu-title { font-size: clamp(2rem, 6vw, 3rem); }
+    .menu-eyebrow { letter-spacing: 3px; }
+    .menu-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .exp-title { font-size: clamp(2rem, 6vw, 3rem); }
+    .visit-title { font-size: clamp(2rem, 6vw, 3rem); }
+    .strip-num { font-size: 2.2rem; }
+    .strip { padding: 1.5rem; }
+    .cta-row { flex-direction: column; gap: 0.8rem; }
+    .btn-dark, .btn-ghost { width: 100%; text-align: center; padding: 0.9rem 1.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+    .hero-left::before { font-size: 10rem; }
+    .hero-left { padding: 3rem 1rem; }
+    .hero-right { padding: 3rem 1rem; }
+    .menu-section, .experience, .visit { padding: 3.5rem 1rem; }
+    .menu-title { font-size: clamp(1.5rem, 5.5vw, 2rem); }
+    .exp-title { font-size: clamp(1.5rem, 5.5vw, 2rem); }
+    .visit-title { font-size: clamp(1.5rem, 5.5vw, 2rem); }
+    nav { padding: 1rem; }
+    .strip { flex-direction: column; gap: 1rem; text-align: center; }
+    .strip-div { display: none; }
+    .strip-item { flex: none; }
+    footer { padding: 2rem 1rem; }
+    .entry-name { font-size: 1.2rem; }
+    .quote-block { padding: 2rem 1rem; }
+    .quote-block::before { font-size: 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <a href="index.html" class="back-link"><span>←</span> <span data-i18n="backToPortfolio">Back to Portfolio</span></a>
+    <div class="logo">Bokharest</div>
+  </div>
+  <ul>
+    <li><a href="#menu" data-i18n="navMenu">Menu</a></li>
+    <li><a href="#experience" data-i18n="navExperience">Experience</a></li>
+    <li><a href="#visit" data-i18n="navVisit">Visit</a></li>
+    <li><a href="#visit" class="nav-reserve open-booking-trigger" data-i18n="navReserve">Reserve</a></li>
+  </ul>
+  <div class="nav-right">
+    <button id="lang-switch" class="lang-switch">العربية</button>
+    <button id="menu-toggle" class="menu-toggle" aria-label="Toggle Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Drawer -->
+<div class="mobile-menu-drawer" id="mobile-menu-drawer">
+  <ul>
+    <li><a href="#menu" data-i18n="navMenu">Menu</a></li>
+    <li><a href="#experience" data-i18n="navExperience">Experience</a></li>
+    <li><a href="#visit" data-i18n="navVisit">Visit</a></li>
+    <li><a href="#visit" class="open-booking-trigger" data-i18n="navReserve">Reserve</a></li>
+  </ul>
+</div>
+
+<div class="hero reveal">
+  <div class="hero-left">
+    <p class="hero-tag" data-i18n="heroTag">Gardenia City Mall · Citywalk · Nasr City</p>
+    <h1 class="hero-title" data-i18n="heroTitle">Black<br>Café &amp;<br><em>More</em></h1>
+  </div>
+  <div class="hero-right">
+    <div class="hero-right-top">
+      <p data-i18n="heroQuote">"Maximum hospitality. A place to pause, to breathe, to belong."</p>
+    </div>
+    <div class="hero-right-bottom">
+      <div>
+        <h3 data-i18n="heroExpTitle">The experience</h3>
+        <p data-i18n="heroExpDesc">BOKHAREST is where Cairo's finest espresso meets genuine warmth. Open around the clock, warmly lit, and always welcoming — even with blankets for those cool evenings.</p>
+      </div>
+      <div class="cta-row">
+        <button class="btn-dark scroll-to-menu" data-i18n="btnMenu">View Menu</button>
+        <button class="btn-ghost scroll-to-visit" data-i18n="btnFindUs">Find Us</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="strip">
+  <div class="strip-item"><div class="strip-num">24H</div><div class="strip-label" data-i18n="statOpen">Open daily</div></div>
+  <div class="strip-div"></div>
+  <div class="strip-item"><div class="strip-num">4.9</div><div class="strip-label" data-i18n="statRating">Guest rating</div></div>
+  <div class="strip-div"></div>
+  <div class="strip-item"><div class="strip-num">78+</div><div class="strip-label" data-i18n="statReviews">Reviews</div></div>
+  <div class="strip-div"></div>
+  <div class="strip-item"><div class="strip-num">∞</div><div class="strip-label" data-i18n="statWarmth">Warmth</div></div>
+</div>
+
+<section id="menu" class="menu-section reveal">
+  <div class="menu-header">
+    <div>
+      <p class="menu-eyebrow" data-i18n="menuEyebrow">Curated for you</p>
+      <h2 class="menu-title" data-i18n="menuTitle">The menu</h2>
+    </div>
+    <p class="menu-subtitle" data-i18n="menuSubtitle">Crafted with care. Every cup, every plate, every moment — made to be remembered.</p>
+  </div>
+  <div class="menu-items">
+    <div class="menu-col">
+      <p class="col-title" data-i18n="menuColCoffee">Coffee</p>
+      <div class="menu-entry">
+        <div class="entry-name" data-i18n="eq1Name">Signature Espresso</div>
+        <div class="entry-desc" data-i18n="eq1Desc">The best espresso in Gardenia. Single-origin beans, pulled perfectly.</div>
+        <div class="entry-price" id="price-eq1">EGP 65</div>
+      </div>
+      <div class="menu-entry">
+        <div class="entry-name" data-i18n="eq2Name">Saffron Cappuccino</div>
+        <div class="entry-desc" data-i18n="eq2Desc">Velvety milk, a whisper of saffron. A cup that stays with you.</div>
+        <div class="entry-price" id="price-eq2">EGP 85</div>
+      </div>
+      <div class="menu-entry">
+        <div class="entry-name" data-i18n="eq3Name">Iced Mocha Black</div>
+        <div class="entry-desc" data-i18n="eq3Desc">Cold brew, dark chocolate, oat milk. Ordered by those who know.</div>
+        <div class="entry-price" id="price-eq3">EGP 90</div>
+      </div>
+    </div>
+    <div class="menu-col">
+      <p class="col-title" data-i18n="menuColFood">Food</p>
+      <div class="menu-entry">
+        <div class="entry-name" data-i18n="eq4Name">Chicken Sahl</div>
+        <div class="entry-desc" data-i18n="eq4Desc">A house recipe slow-cooked in warming spices. Comfort, elevated.</div>
+        <div class="entry-price" id="price-eq4">EGP 135</div>
+      </div>
+      <div class="menu-entry">
+        <div class="entry-name" data-i18n="eq5Name">Club Sandwich</div>
+        <div class="entry-desc" data-i18n="eq5Desc">Triple-stacked with smoked turkey, crispy bacon, fresh greens.</div>
+        <div class="entry-price" id="price-eq5">EGP 115</div>
+      </div>
+      <div class="menu-entry">
+        <div class="entry-name" data-i18n="eq6Name">Saffron Cake</div>
+        <div class="entry-desc" data-i18n="eq6Desc">Delicate, not too sweet. The slice that ends every great meal here.</div>
+        <div class="entry-price" id="price-eq6">EGP 75</div>
+      </div>
+    </div>
+    <div class="menu-col">
+      <p class="col-title" data-i18n="menuColWarm">Warm drinks</p>
+      <div class="menu-entry">
+        <div class="entry-name" data-i18n="eq7Name">Sahlab</div>
+        <div class="entry-desc" data-i18n="eq7Desc">The perfect Sahlab — warm, creamy, crowned with cinnamon and pistachios.</div>
+        <div class="entry-price" id="price-eq7">EGP 70</div>
+      </div>
+      <div class="menu-entry">
+        <div class="entry-name" data-i18n="eq8Name">Moroccan Mint Tea</div>
+        <div class="entry-desc" data-i18n="eq8Desc">Steeped fresh, poured high, served in traditional glass.</div>
+        <div class="entry-price" id="price-eq8">EGP 55</div>
+      </div>
+      <div class="menu-entry">
+        <div class="entry-name" data-i18n="eq9Name">Warm Spiced Cider</div>
+        <div class="entry-desc" data-i18n="eq9Desc">Apple, cinnamon, star anise. Best ordered with a blanket.</div>
+        <div class="entry-price" id="price-eq9">EGP 65</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="experience reveal">
+  <div class="exp-text">
+    <p class="exp-eyebrow" data-i18n="expEyebrow">Why guests return</p>
+    <h2 class="exp-title" data-i18n="expTitle">An experience,<br>not just <em>a coffee</em></h2>
+    <p class="exp-body" data-i18n="expBody">BOKHAREST was built around a single idea — that hospitality should be felt, not just provided. From the moment you arrive to the last sip, you're a guest in every sense of the word.</p>
+    <ul class="exp-list">
+      <li data-i18n="expList1">Blankets provided on cool evenings</li>
+      <li data-i18n="expList2">Staff recognized for exceptional warmth</li>
+      <li data-i18n="expList3">Ramadan tents and special seasonal events</li>
+      <li data-i18n="expList4">Cozy indoor and open citywalk seating</li>
+    </ul>
+  </div>
+  
+  <div class="exp-visual-tabs">
+    <div class="tab-triggers">
+      <button class="tab-trigger active" data-tab="family" data-i18n="expTab1">Family gatherings</button>
+      <button class="tab-trigger" data-tab="latenights" data-i18n="expTab2">Late nights</button>
+      <button class="tab-trigger" data-tab="events" data-i18n="expTab3">Special events</button>
+    </div>
+    <div class="tab-content-box">
+      <h4 id="tab-content-title" data-i18n="tab1Title">Family gatherings</h4>
+      <p id="tab-content-desc" data-i18n="tab1Desc">Spacious seating, a welcoming atmosphere, and a menu that has something for every generation.</p>
+    </div>
+  </div>
+</section>
+
+<section id="visit" class="visit reveal">
+  <div>
+    <p style="font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase; color: var(--sage); margin-bottom: 0.5rem;" data-i18n="visitEyebrow">Plan your visit</p>
+    <h2 class="visit-title" data-i18n="visitTitle">Hours &amp;<br>location</h2>
+    <div class="visit-rows">
+      <div class="visit-row"><span class="visit-label" data-i18n="visitLabelHours">Hours</span><span class="visit-val highlight" data-i18n="visitValHours">Open 24 hours, every day</span></div>
+      <div class="visit-row"><span class="visit-label" data-i18n="visitLabelAddress">Address</span><span class="visit-val" data-i18n="visitValAddress">Citywalk, Gardenia City Mall, Nasr City</span></div>
+      <div class="visit-row"><span class="visit-label" data-i18n="visitLabelPhone">Phone</span><span class="visit-val">+20 10 01442625</span></div>
+      <div class="visit-row"><span class="visit-label" data-i18n="visitLabelParking">Parking</span><span class="visit-val highlight" data-i18n="visitValParking">Free at Gardenia City Mall</span></div>
+    </div>
+  </div>
+  <div class="quote-block">
+    <p class="quote-text" data-i18n="quoteReview">"Great experience, great staff, delicious food &amp; coffee."</p>
+    <p class="quote-attr" data-i18n="quoteAttr">— Guest review, Google Maps</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Bokharest</div>
+  <div class="footer-copy" data-i18n="footerCopy">© 2025 BOKHAREST Black Café · Gardenia City Mall, Nasr City, Cairo</div>
+</footer>
+
+<!-- Table Reservation Modal -->
+<div id="booking-modal" class="modal">
+  <div class="modal-content">
+    <button class="close-modal" id="close-modal">&times;</button>
+    <div id="booking-form-container">
+      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--ink); font-weight: 300;" data-i18n="modalTitle">Reserve a Table</h3>
+      <p style="font-size: 0.82rem; color: var(--ink); opacity: 0.6; margin-top: 0.25rem;" data-i18n="modalDesc">Book your cozy spot at Bokharest. We'll secure your table.</p>
+      <form id="cafe-booking-form" class="modal-form">
+        <input type="text" id="booking-name" required placeholder="Your Name">
+        <input type="tel" id="booking-phone" required placeholder="Phone Number">
+        <label for="booking-blanket" data-i18n="labelBlanket">Request blanket for cool evening?</label>
+        <select id="booking-blanket">
+          <option value="yes" data-i18n="selectBlanketYes">Yes, please</option>
+          <option value="no" selected data-i18n="selectBlanketNo">No, thanks</option>
+        </select>
+        <button type="submit" class="btn-dark" data-i18n="modalSubmit">Request Reservation</button>
+      </form>
+    </div>
+    <div id="booking-success-container" class="success-container hidden">
+      <div class="success-icon">✓</div>
+      <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300;" data-i18n="successTitle">Reservation Requested</h3>
+      <p style="font-size: 0.85rem; color: var(--ink); opacity: 0.7; margin-bottom: 1rem;" data-i18n="successDesc">Thank you! We've received your table request. If you requested a blanket, it will be waiting for you.</p>
+      <button id="success-close-btn" class="btn-ghost" data-i18n="successClose">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ==============================================================
+     TRANSLATIONS DICTIONARY
+     ============================================================== */
+  const T = {
+    en: {
+      docTitle: "BOKHAREST Black Café — Gardenia City Mall",
+      backToPortfolio: "Back to Portfolio",
+      navMenu: "Menu",
+      navExperience: "Experience",
+      navVisit: "Visit",
+      navReserve: "Reserve",
+
+      heroTag: "Gardenia City Mall · Citywalk · Nasr City",
+      heroTitle: "Black<br>Café &amp;<br><em>More</em>",
+      heroQuote: "\"Maximum hospitality. A place to pause, to breathe, to belong.\"",
+      heroExpTitle: "The experience",
+      heroExpDesc: "BOKHAREST is where Cairo's finest espresso meets genuine warmth. Open around the clock, warmly lit, and always welcoming — even with blankets for those cool evenings.",
+      btnMenu: "View Menu",
+      btnFindUs: "Find Us",
+
+      statOpen: "Open daily",
+      statRating: "Guest rating",
+      statReviews: "Reviews",
+      statWarmth: "Warmth",
+
+      menuEyebrow: "Curated for you",
+      menuTitle: "The menu",
+      menuSubtitle: "Crafted with care. Every cup, every plate, every moment — made to be remembered.",
+      menuColCoffee: "Coffee",
+      menuColFood: "Food",
+      menuColWarm: "Warm drinks",
+
+      eq1Name: "Signature Espresso",
+      eq1Desc: "The best espresso in Gardenia. Single-origin beans, pulled perfectly.",
+      eq2Name: "Saffron Cappuccino",
+      eq2Desc: "Velvety milk, a whisper of saffron. A cup that stays with you.",
+      eq3Name: "Iced Mocha Black",
+      eq3Desc: "Cold brew, dark chocolate, oat milk. Ordered by those who know.",
+      eq4Name: "Chicken Sahl",
+      eq4Desc: "A house recipe slow-cooked in warming spices. Comfort, elevated.",
+      eq5Name: "Club Sandwich",
+      eq5Desc: "Triple-stacked with smoked turkey, crispy bacon, fresh greens.",
+      eq6Name: "Saffron Cake",
+      eq6Desc: "Delicate, not too sweet. The slice that ends every great meal here.",
+      eq7Name: "Sahlab",
+      eq7Desc: "The perfect Sahlab — warm, creamy, crowned with cinnamon and pistachios.",
+      eq8Name: "Moroccan Mint Tea",
+      eq8Desc: "Steeped fresh, poured high, served in traditional glass.",
+      eq9Name: "Warm Spiced Cider",
+      eq9Desc: "Apple, cinnamon, star anise. Best ordered with a blanket.",
+
+      expEyebrow: "Why guests return",
+      expTitle: "An experience,<br>not just <em>a coffee</em>",
+      expBody: "BOKHAREST was built around a single idea — that hospitality should be felt, not just provided. From the moment you arrive to the last sip, you're a guest in every sense of the word.",
+      expList1: "Blankets provided on cool evenings",
+      expList2: "Staff recognized for exceptional warmth",
+      expList3: "Ramadan tents and special seasonal events",
+      expList4: "Cozy indoor and open citywalk seating",
+
+      expTab1: "Family gatherings",
+      expTab2: "Late nights",
+      expTab3: "Special events",
+
+      tab1Title: "Family gatherings",
+      tab1Desc: "Spacious seating, a welcoming atmosphere, and a menu that has something for every generation.",
+      tab2Title: "Late nights",
+      tab2Desc: "Open through the night. Whether it's 2am or 6am, a perfect cup is always waiting.",
+      tab3Title: "Special events",
+      tab3Desc: "Ramadan iftars, private reservations, seasonal menus. Talk to us about your occasion.",
+
+      visitEyebrow: "Plan your visit",
+      visitTitle: "Hours &amp;<br>location",
+      visitLabelHours: "Hours",
+      visitValHours: "Open 24 hours, every day",
+      visitLabelAddress: "Address",
+      visitValAddress: "Citywalk, Gardenia City Mall, Nasr City",
+      visitLabelPhone: "Phone",
+      visitLabelParking: "Parking",
+      visitValParking: "Free at Gardenia City Mall",
+
+      quoteReview: "\"Great experience, great staff, delicious food &amp; coffee.\"",
+      quoteAttr: "— Guest review, Google Maps",
+      footerCopy: "© 2025 BOKHAREST Black Café · Gardenia City Mall, Nasr City, Cairo",
+
+      modalTitle: "Reserve a Table",
+      modalDesc: "Book your cozy spot at Bokharest. We'll secure your table.",
+      labelBlanket: "Request blanket for cool evening?",
+      selectBlanketYes: "Yes, please",
+      selectBlanketNo: "No, thanks",
+      modalSubmit: "Request Reservation",
+      successTitle: "Reservation Requested",
+      successDesc: "Thank you! We've received your table request. If you requested a blanket, it will be waiting for you.",
+      successClose: "Close",
+
+      placeholderName: "Your Name",
+      placeholderPhone: "Phone Number"
+    },
+    ar: {
+      docTitle: "بخارست بلاك كافيه — جاردينيا سيتي مول",
+      backToPortfolio: "العودة للمعرض",
+      navMenu: "القائمة",
+      navExperience: "التجربة",
+      navVisit: "الموقع",
+      navReserve: "حجز طاولة",
+
+      heroTag: "جاردينيا سيتي مول · سيتي ووك · مدينة نصر",
+      heroTitle: "بلاك كافيه<br>وأكثر<br><em>بكثير</em>",
+      heroQuote: "\"كرم ضيافة استثنائي. مكان لتتوقف للحظة، لتتنفس بعمق، ولتنتمي.\"",
+      heroExpTitle: "التجربة الفريدة",
+      heroExpDesc: "بخارست هو المكان الذي يلتقي فيه أفضل إسبريسو في القاهرة مع الدفء والترحاب الحقيقي. مفتوح على مدار الساعة، إضاءة دافئة، وترحيب دائم بالجميع — مع توفير أغطية دافئة للأمسيات الباردة.",
+      btnMenu: "عرض القائمة",
+      btnFindUs: "موقعنا",
+
+      statOpen: "مفتوح يومياً",
+      statRating: "تقييم الضيوف",
+      statReviews: "تقييمات قوقل",
+      statWarmth: "كرم الضيافة",
+
+      menuEyebrow: "منسقة خصيصاً لك",
+      menuTitle: "قائمة الطعام",
+      menuSubtitle: "صنعت بحب وعناية. كل كوب، كل طبق، كل لحظة — صممت لتبقى خالدة في الذاكرة.",
+      menuColCoffee: "القهوة",
+      menuColFood: "الأطباق",
+      menuColWarm: "مشروبات دافئة",
+
+      eq1Name: "إسبريسو مميز",
+      eq1Desc: "أفضل كوب إسبريسو في جاردينيا. حبوب بن أحادية المنشأ، مستخلصة بمثالية تامة.",
+      eq2Name: "كابوتشينو الزعفران",
+      eq2Desc: "حليب مخملي كريمي، مع لمحة ساحرة من الزعفران الطبيعي. كوب فريد يرافق ذهنك طويلاً.",
+      eq3Name: "آيس موكا بلاك",
+      eq3Desc: "قهوة مستخلصة باردة، شوكولاتة داكنة، حليب الشوفان. للباحثين عن التميز.",
+      eq4Name: "دجاج سهل",
+      eq4Desc: "وصفة المطعم الخاصة المطبوخة ببطء مع بهارات دافئة. طعم تقليدي في قالب عصري.",
+      eq5Name: "كلوب ساندوتش",
+      eq5Desc: "ثلاث طبقات من التوست المحمص مع الديك الرومي المدخن، اللحم البقري المقرمش، والخضار.",
+      eq6Name: "كيكة الزعفران",
+      eq6Desc: "قوام هش إسفنجي، مع حلاوة متوازنة. القطعة المثالية لتختم بها وجبتك الفاخرة.",
+      eq7Name: "سحلب ملوكي",
+      eq7Desc: "السحلب التقليدي الأصيل — دافئ، كريمي القوام، ومزين بالدارسين والقرفة مع الفستق الحلبي.",
+      eq8Name: "شاي مغربي بالنعناع",
+      eq8Desc: "أوراق شاي مستخلصة طازجة، يصب من الأعلى ليصنع رغوة، ويقدم بكؤوس مغربية تراثية.",
+      eq9Name: "عصير تفاح دافئ بالبهارات",
+      eq9Desc: "عصير تفاح طبيعي بالفرن، قرفة، ويانسون نجمي. الأفضل للأجواء الشتوية الباردة.",
+
+      expEyebrow: "لماذا يعود ضيوفنا",
+      expTitle: "تجربة متكاملة،<br>وليست مجرد <em>كوب قهوة</em>",
+      expBody: "تأسس مقهى بخارست حول فكرة واحدة — أن الضيافة يجب أن تُعاش وتُشعر، لا أن تُقدم كخدمة فقط. منذ لحظة وصولك وحتى الرشفة الأخيرة، أنت ضيفنا بكل ترحاب وتقدير.",
+      expList1: "نوفر أغطية صوفية دافئة في الأمسيات الباردة",
+      expList2: "طاقم عمل متميز بالود والبشاشة الاستثنائية",
+      expList3: "خيام رمضانية وفعاليات موسمية مميزة",
+      expList4: "جلسات داخلية مريحة وجلسات خارجية بالهواء الطلق في السيتي ووك",
+
+      expTab1: "جمعات العائلات",
+      expTab2: "الأوقات المتأخرة",
+      expTab3: "المناسبات الخاصة",
+
+      tab1Title: "جمعات العائلات",
+      tab1Desc: "جلسات واسعة ومريحة، أجواء ترحيبية هادئة، وقائمة طعام غنية ومشروبات تناسب جميع الأجيال والأعمار.",
+      tab2Title: "الأوقات المتأخرة",
+      tab2Desc: "نعمل طوال الليل دون انقطاع. سواء كانت الساعة ٢ بعد منتصف الليل أو ٦ صباحاً، فنجانك المثالي الساخن بانتظارك.",
+      tab3Title: "المناسبات الخاصة",
+      tab3Desc: "إفطار وسحور رمضان، حجوزات خاصة للمجموعات، قوائم طعام موسمية. تحدث معنا لننظم مناسبتك القادمة.",
+
+      visitEyebrow: "خطط لزيارتك",
+      visitTitle: "المواعيد<br>والموقع",
+      visitLabelHours: "ساعات العمل",
+      visitValHours: "مفتوح ٢٤ ساعة، طوال الأسبوع",
+      visitLabelAddress: "العنوان",
+      visitValAddress: "سيتي ووك، جاردينيا سيتي مول، مدينة نصر",
+      visitLabelPhone: "الهاتف",
+      visitLabelParking: "موقف السيارات",
+      visitValParking: "مجاني بالكامل بجاردينيا سيتي مول",
+
+      quoteReview: "\"تجربة رائعة، طاقم عمل ممتاز، أكل وقهوة في غاية اللذة وننصح به بقوة.\"",
+      quoteAttr: "— تقييم ضيف، خرائط جوجل",
+      footerCopy: "© ٢٠٢٥ بخارست بلاك كافيه · جاردينيا سيتي مول، مدينة نصر، القاهرة",
+
+      modalTitle: "حجز طاولة",
+      modalDesc: "احجز مكانك المريح والدافئ في بخارست. سنقوم بتأمين طاولتك فوراً.",
+      labelBlanket: "هل تود طلب أغطية صوفية للأمسيات الخارجية الباردة؟",
+      selectBlanketYes: "نعم، من فضلك",
+      selectBlanketNo: "لا، شكراً",
+      modalSubmit: "إرسال طلب الحجز",
+      successTitle: "تم طلب الحجز بنجاح",
+      successDesc: "شكراً لك! لقد تلقينا طلب الحجز بنجاح. إذا كنت قد طلبت غطاءً صوفياً، فسيكون بانتظارك على طاولتك عند وصولك.",
+      successClose: "إغلاق",
+
+      placeholderName: "الاسم الكريم",
+      placeholderPhone: "رقم الهاتف"
+    }
+  };
+
+  /* ==============================================================
+     TABS CONTENT DICTIONARY
+     ============================================================== */
+  const TABS_CONTENT = {
+    en: {
+      family: {
+        title: "Family gatherings",
+        desc: "Spacious seating, a welcoming atmosphere, and a menu that has something for every generation."
+      },
+      latenights: {
+        title: "Late nights",
+        desc: "Open through the night. Whether it's 2am or 6am, a perfect cup is always waiting."
+      },
+      events: {
+        title: "Special events",
+        desc: "Ramadan iftars, private reservations, seasonal menus. Talk to us about your occasion."
+      }
+    },
+    ar: {
+      family: {
+        title: "جمعات العائلات",
+        desc: "جلسات واسعة ومريحة، أجواء ترحيبية هادئة، وقائمة طعام غنية ومشروبات تناسب جميع الأجيال والأعمار."
+      },
+      latenights: {
+        title: "الأوقات المتأخرة",
+        desc: "نعمل طوال الليل دون انقطاع. سواء كانت الساعة ٢ بعد منتصف الليل أو ٦ صباحاً، فنجانك المثالي الساخن بانتظارك."
+      },
+      events: {
+        title: "المناسبات الخاصة",
+        desc: "إفطار وسحور رمضان، حجوزات خاصة للمجموعات، قوائم طعام موسمية. تحدث معنا لننظم مناسبتك القادمة."
+      }
+    }
+  };
+
+  let lang = "en";
+  let activeTab = "family";
+
+  function setLang(l) {
+    lang = l;
+    const html = document.documentElement;
+    html.setAttribute("lang", l);
+    html.setAttribute("dir", l === "ar" ? "rtl" : "ltr");
+
+    // Toggle button label
+    document.getElementById("lang-switch").textContent = l === "en" ? "العربية" : "English";
+
+    // Text translations
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      if (T[l][key]) {
+        el.innerHTML = T[l][key];
+      }
+    });
+
+    // Form placeholders
+    const nameInput = document.getElementById("booking-name");
+    const phoneInput = document.getElementById("booking-phone");
+    if (nameInput) nameInput.placeholder = T[l].placeholderName;
+    if (phoneInput) phoneInput.placeholder = T[l].placeholderPhone;
+
+    // Refresh menu prices formatting
+    updatePricesDisplay();
+
+    // Refresh active tab text
+    updateActiveTabText();
+
+    // Save language preference
+    try { localStorage.setItem("lang", l); } catch (e) {}
+  }
+
+  function updatePricesDisplay() {
+    const items = {
+      eq1: lang === "ar" ? "٦٥ ج.م" : "EGP 65",
+      eq2: lang === "ar" ? "٨٥ ج.م" : "EGP 85",
+      eq3: lang === "ar" ? "٩٠ ج.م" : "EGP 90",
+      eq4: lang === "ar" ? "١٣٥ ج.م" : "EGP 135",
+      eq5: lang === "ar" ? "١١٥ ج.م" : "EGP 115",
+      eq6: lang === "ar" ? "٧٥ ج.م" : "EGP 75",
+      eq7: lang === "ar" ? "٧٠ ج.م" : "EGP 70",
+      eq8: lang === "ar" ? "٥٥ ج.م" : "EGP 55",
+      eq9: lang === "ar" ? "٦٥ ج.م" : "EGP 65"
+    };
+    for (let id in items) {
+      const el = document.getElementById("price-" + id);
+      if (el) el.textContent = items[id];
+    }
+  }
+
+  function updateActiveTabText() {
+    const data = TABS_CONTENT[lang][activeTab];
+    const box = document.querySelector(".tab-content-box");
+    
+    box.style.opacity = "0";
+    setTimeout(() => {
+      document.getElementById("tab-content-title").textContent = data.title;
+      document.getElementById("tab-content-desc").textContent = data.desc;
+      box.style.opacity = "1";
+    }, 150);
+  }
+
+  /* ==============================================================
+     LANGUAGE TOGGLE INITIALIZATION
+     ============================================================== */
+  document.getElementById("lang-switch").addEventListener("click", () => {
+    setLang(lang === "en" ? "ar" : "en");
+  });
+
+  // Check saved language on load
+  try {
+    const savedLang = localStorage.getItem("lang");
+    if (savedLang === "ar" || savedLang === "en") {
+      setLang(savedLang);
+    } else {
+      setLang("en");
+    }
+  } catch (e) {
+    setLang("en");
+  }
+
+  /* ==============================================================
+     MOBILE DRAWER NAVIGATION
+     ============================================================== */
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenuDrawer = document.getElementById("mobile-menu-drawer");
+
+  menuToggle.addEventListener("click", () => {
+    menuToggle.classList.toggle("active");
+    mobileMenuDrawer.classList.toggle("active");
+  });
+
+  mobileMenuDrawer.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      menuToggle.classList.remove("active");
+      mobileMenuDrawer.classList.remove("active");
+    });
+  });
+
+  /* ==============================================================
+     INTERACTIVE TABS EVENT
+     ============================================================== */
+  const tabTriggers = document.querySelectorAll(".tab-trigger");
+  tabTriggers.forEach(trigger => {
+    trigger.addEventListener("click", () => {
+      tabTriggers.forEach(t => t.classList.remove("active"));
+      trigger.classList.add("active");
+      activeTab = trigger.getAttribute("data-tab");
+      updateActiveTabText();
+    });
+  });
+
+  /* ==============================================================
+     SMOOTH SCROLL UTILS
+     ============================================================== */
+  const scrollMenu = document.querySelector(".scroll-to-menu");
+  if (scrollMenu) {
+    scrollMenu.addEventListener("click", () => {
+      document.getElementById("menu").scrollIntoView({ behavior: "smooth" });
+    });
+  }
+  const scrollVisit = document.querySelector(".scroll-to-visit");
+  if (scrollVisit) {
+    scrollVisit.addEventListener("click", () => {
+      document.getElementById("visit").scrollIntoView({ behavior: "smooth" });
+    });
+  }
+
+  /* ==============================================================
+     SCROLL REVEAL OBSERVER
+     ============================================================== */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+  /* ==============================================================
+     MODAL CONTROLLER
+     ============================================================== */
+  const modal = document.getElementById("booking-modal");
+  const closeBtn = document.getElementById("close-modal");
+  const successCloseBtn = document.getElementById("success-close-btn");
+  const bookingForm = document.getElementById("cafe-booking-form");
+  const formContainer = document.getElementById("booking-form-container");
+  const successContainer = document.getElementById("booking-success-container");
+
+  // Open triggers
+  document.querySelectorAll(".open-booking-trigger").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  // Close triggers
+  function closeModal() {
+    modal.classList.remove("active");
+    document.body.style.overflow = "";
+    setTimeout(() => {
+      formContainer.classList.remove("hidden");
+      successContainer.classList.add("hidden");
+      bookingForm.reset();
+    }, 300);
+  }
+
+  closeBtn.addEventListener("click", closeModal);
+  successCloseBtn.addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Form submit handling
+  bookingForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    formContainer.classList.add("hidden");
+    successContainer.classList.remove("hidden");
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="docTitle">Delor Beauty Salon — Gardenia City Mall</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500;600&family=Noto+Sans+Arabic:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- FIX: Ensure content is visible if JS is disabled -->
+  <noscript>
+    <style>
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    </style>
+  </noscript>
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blush: #F7EDE8;
+      --rose: #C8796A;
+      --deep-rose: #7A4D43;
+      --taupe: #C4A99A;
+      --dark: #2A1F1C;
+      --text: #3A2A26;
+      --muted: #9A8278;
+      --warm-white: #FDFBF9;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    body {
+      background: var(--warm-white);
+      color: var(--text);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* Floating background organic blob */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(200, 121, 106, 0.06) 0%, transparent 70%);
+      border-radius: 58% 42% 38% 62% / 48% 52% 48% 52%;
+      top: 5%;
+      left: -10%;
+      pointer-events: none;
+      z-index: -1;
+      animation: floatBlob 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatBlob {
+      0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+      }
+
+      100% {
+        transform: translate(50px, 30px) rotate(45deg) scale(1.15);
+      }
+    }
+
+    /* Navigation Curved Style */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.8rem 5rem;
+      position: sticky;
+      top: 0;
+      background: rgba(253, 251, 249, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(196, 169, 154, 0.2);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .back-link {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      opacity: 0.7;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .back-link:hover {
+      opacity: 1;
+      color: var(--rose);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--text);
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: var(--rose);
+      font-style: italic;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.6;
+      transition: all 0.3s;
+    }
+
+    nav a:hover {
+      opacity: 1;
+      color: var(--rose);
+    }
+
+    .nav-book {
+      background: var(--rose);
+      color: white !important;
+      opacity: 1 !important;
+      padding: 0.6rem 1.6rem;
+      letter-spacing: 2px;
+      border-radius: 30px;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s;
+    }
+
+    .nav-book:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(200, 121, 106, 0.3);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    /* Lang Switcher */
+    .lang-switch {
+      background: transparent;
+      border: 1px solid rgba(196, 169, 154, 0.4);
+      color: var(--text);
+      padding: 0.5rem 1.2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      cursor: pointer;
+      text-transform: uppercase;
+      border-radius: 30px;
+      transition: all 0.3s var(--ease);
+    }
+
+    .lang-switch:hover {
+      background: var(--rose);
+      color: white;
+      border-color: var(--rose);
+      box-shadow: 0 5px 15px rgba(200, 121, 106, 0.2);
+    }
+
+    /* Mobile Toggle */
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 22px;
+      height: 16px;
+      z-index: 110;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--text);
+      transition: all 0.3s var(--ease);
+      transform-origin: left center;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(2px, -1px);
+      background: var(--rose);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(2px, 1px);
+      background: var(--rose);
+    }
+
+    /* Mobile Drawer */
+    .mobile-menu-drawer {
+      position: fixed;
+      inset: 0;
+      background: var(--warm-white);
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border-left: 1px solid rgba(196, 169, 154, 0.2);
+    }
+
+    .mobile-menu-drawer.active {
+      transform: translateX(0);
+    }
+
+    .mobile-menu-drawer ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .mobile-menu-drawer a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 2rem;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.8;
+    }
+
+    .mobile-menu-drawer a:hover {
+      opacity: 1;
+      color: var(--rose);
+    }
+
+    /* Hero Section Curves */
+    .hero {
+      display: grid;
+      grid-template-columns: 5fr 4fr;
+      min-height: 90vh;
+    }
+
+    .hero-left {
+      padding: 6rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--taupe);
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 6vw, 6.2rem);
+      color: var(--text);
+      line-height: 1.05;
+      font-weight: 400;
+    }
+
+    h1 em {
+      color: var(--rose);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-top: 1.8rem;
+      max-width: 440px;
+      line-height: 1.9;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 3rem;
+      align-items: center;
+    }
+
+    .btn-rose {
+      background: var(--rose);
+      color: white;
+      padding: 1.1rem 3rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      border-radius: 30px;
+      transition: all 0.3s var(--ease);
+    }
+
+    .btn-rose:hover {
+      background: var(--dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(200, 121, 106, 0.35);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      padding: 1.1rem 3rem;
+      border: 1px solid var(--taupe);
+      cursor: pointer;
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-family: 'Jost', sans-serif;
+      font-weight: 500;
+      border-radius: 30px;
+      transition: all 0.3s var(--ease);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--rose);
+      color: var(--rose);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(196, 169, 154, 0.15);
+    }
+
+    /* Hero Right arch curves */
+    .hero-right {
+      background: var(--blush);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 6rem 3.5rem;
+      border-radius: 200px 200px 30px 30px;
+      box-shadow: 0 20px 45px rgba(122, 77, 67, 0.06);
+    }
+
+    .hero-right-top {}
+
+    .hero-pill {
+      display: inline-block;
+      background: white;
+      color: var(--rose);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.5rem 1.2rem;
+      border-radius: 100px;
+      font-weight: 500;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .hero-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.6;
+      margin-top: 1.5rem;
+    }
+
+    .hero-services-preview {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 3rem;
+    }
+
+    .hsp-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 1.1rem 1.5rem;
+      border-radius: 30px;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s;
+    }
+
+    .hsp-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(122, 77, 67, 0.06);
+    }
+
+    .hsp-name {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .hsp-price {
+      font-size: 0.85rem;
+      color: var(--rose);
+      font-weight: 600;
+    }
+
+    /* Services with arches visual */
+    .services {
+      padding: 8rem 5rem;
+    }
+
+    .section-tag {
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--taupe);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 4.5vw, 4.2rem);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--text);
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--rose);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .service-card {
+      background: var(--blush);
+      padding: 3.5rem 2.5rem;
+      border-radius: 120px 120px 30px 30px;
+      transition: all 0.3s var(--ease);
+      box-shadow: 0 10px 30px rgba(122, 77, 67, 0.03);
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(122, 77, 67, 0.1);
+    }
+
+    .service-card:nth-child(2) {
+      background: var(--rose);
+    }
+
+    .service-card:nth-child(2) .sc-name,
+    .service-card:nth-child(2) .sc-tagline {
+      color: white;
+    }
+
+    .service-card:nth-child(2) .sc-desc {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .service-card:nth-child(2) .sc-items li {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .service-card:nth-child(2) .sc-items li::before {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .sc-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      display: block;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
+    }
+
+    .sc-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--text);
+    }
+
+    .sc-tagline {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .sc-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+      line-height: 1.8;
+      min-height: 50px;
+    }
+
+    .sc-items {
+      list-style: none;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .sc-items li {
+      font-size: 0.85rem;
+      color: var(--text);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .sc-items li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--taupe);
+    }
+
+    /* service bundle calculator curved boxes */
+    .calculator-box {
+      background: var(--blush);
+      border-radius: 40px;
+      padding: 3.5rem;
+      margin-top: 6rem;
+      box-shadow: 0 15px 30px rgba(122, 77, 67, 0.04);
+    }
+
+    .calculator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      margin-top: 2rem;
+    }
+
+    .calc-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--text);
+      user-select: none;
+      font-weight: 500;
+    }
+
+    .calc-check {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 1px solid var(--rose);
+      background: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border-radius: 5px;
+      transition: background 0.2s;
+    }
+
+    .calc-check:checked {
+      background: var(--rose);
+    }
+
+    .calc-check:checked::after {
+      content: '✓';
+      color: white;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .calculator-total {
+      border-top: 1px solid rgba(196, 169, 154, 0.3);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+    }
+
+    .calculator-total strong {
+      color: var(--deep-rose);
+    }
+
+    /* Team Section */
+    .team {
+      padding: 8rem 5rem;
+      background: var(--dark);
+      border-radius: 40px 40px 0 0;
+    }
+
+    .team-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 4rem;
+    }
+
+    .team-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+      font-weight: 400;
+      color: white;
+    }
+
+    .team-title em {
+      font-style: italic;
+      color: var(--taupe);
+    }
+
+    .team-intro p {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.9;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px;
+      background: #3a2e2a;
+    }
+
+    .team-member {
+      background: #2a1f1c;
+      padding: 3rem 2.5rem;
+      transition: background 0.3s;
+    }
+
+    .team-member:hover {
+      background: #332723;
+    }
+
+    .member-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--rose);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: white;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .member-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: white;
+      font-weight: 400;
+    }
+
+    .member-spec {
+      font-size: 0.75rem;
+      color: var(--taupe);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+      font-weight: 500;
+    }
+
+    .member-note {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 0.8rem;
+      line-height: 1.7;
+    }
+
+    /* Booking section with curved arch cards */
+    .booking {
+      padding: 8rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .booking-text .section-title {
+      margin-top: 0.5rem;
+    }
+
+    .booking-text p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-top: 1.5rem;
+      line-height: 1.9;
+      max-width: 400px;
+    }
+
+    .contact-list {
+      list-style: none;
+      margin-top: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .contact-list li {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .contact-icon {
+      color: var(--rose);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-text {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .booking-card {
+      background: var(--blush);
+      padding: 4rem 3.5rem;
+      border-radius: 120px 120px 30px 30px;
+      box-shadow: 0 20px 45px rgba(122, 77, 67, 0.06);
+    }
+
+    .booking-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: var(--text);
+      text-align: center;
+    }
+
+    .booking-card h3 em {
+      font-style: italic;
+      color: var(--rose);
+    }
+
+    .booking-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 2.5rem;
+    }
+
+    .booking-form select,
+    .booking-form input {
+      background: white;
+      border: 1px solid rgba(196, 169, 154, 0.3);
+      padding: 1rem 1.2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      width: 100%;
+      border-radius: 30px;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .booking-form select:focus,
+    .booking-form input:focus {
+      outline: none;
+      border-color: var(--rose);
+      box-shadow: 0 4px 12px rgba(200, 121, 106, 0.1);
+    }
+
+    .booking-form button {
+      background: var(--rose);
+      color: white;
+      padding: 1.1rem;
+      border: none;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      border-radius: 30px;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+
+    .booking-form button:hover {
+      background: var(--dark);
+      box-shadow: 0 10px 25px rgba(200, 121, 106, 0.25);
+    }
+
+    /* Success inside Card */
+    .success-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.2rem;
+      padding: 2rem 0;
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--rose);
+      color: white;
+      font-size: 2rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 8px 20px rgba(200, 121, 106, 0.3);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid #3a2e2a;
+      padding: 3rem 5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: white;
+      letter-spacing: 1px;
+    }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.3);
+      font-weight: 500;
+    }
+
+    /* Scroll Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ================================================================
+     RTL / ARABIC STYLING OVERRIDES
+     ================================================================ */
+    [dir="rtl"] {
+      font-family: 'Noto Sans Arabic', 'Jost', sans-serif;
+    }
+
+    [dir="rtl"] .back-link {
+      flex-direction: row-reverse;
+    }
+
+    /* FIX: Only flip the arrow span, not the text label */
+    [dir="rtl"] .back-link span:first-child {
+      display: inline-block;
+      transform: scaleX(-1);
+    }
+
+    [dir="rtl"] .sc-items li {
+      padding-left: 0;
+      padding-right: 1.2rem;
+    }
+
+    [dir="rtl"] .sc-items li::before {
+      left: auto;
+      right: 0;
+      content: '—';
+    }
+
+    [dir="rtl"] .sc-tagline {
+      letter-spacing: 1px;
+    }
+
+    [dir="rtl"] .member-spec {
+      letter-spacing: 1px;
+    }
+
+    [dir="rtl"] .contact-list {
+      padding-right: 0;
+    }
+
+    [dir="rtl"] .lang-switch {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] .btn-rose,
+    [dir="rtl"] .btn-ghost,
+    [dir="rtl"] .booking-form button {
+      letter-spacing: 1px;
+    }
+
+    [dir="rtl"] .hero-pill {
+      letter-spacing: 1px;
+    }
+
+    [dir="rtl"] .footer-logo {
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 900px) {
+      nav {
+        padding: 1.5rem 1.5rem;
+      }
+
+      nav ul {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-left {
+        padding: 5rem 1.5rem;
+      }
+
+      .hero-right {
+        padding: 4rem 1.5rem;
+        border-radius: 120px 120px 20px 20px;
+      }
+
+      .services,
+      .booking {
+        padding: 5rem 1.5rem;
+        grid-template-columns: 1fr;
+      }
+
+      .service-card {
+        border-radius: 80px 80px 20px 20px;
+      }
+
+      .calculator-box {
+        padding: 2.2rem 1.5rem;
+        margin-top: 3.5rem;
+      }
+
+      .team {
+        padding: 5rem 1.5rem;
+      }
+
+      .team-header {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .booking-card {
+        border-radius: 80px 80px 20px 20px;
+        padding: 3rem 1.5rem;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 1.2rem;
+        text-align: center;
+        padding: 2.5rem 1.5rem;
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 8vw, 3.5rem);
+      }
+
+      .section-title {
+        font-size: clamp(1.8rem, 6vw, 2.8rem);
+      }
+
+      .team-title {
+        font-size: clamp(2rem, 7vw, 3rem);
+      }
+
+      .hero-sub {
+        font-size: 0.9rem;
+        margin-top: 1.2rem;
+      }
+
+      .hero-btns {
+        gap: 0.8rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .btn-rose, .btn-outline-rose {
+        padding: 0.9rem 2rem;
+        font-size: 0.8rem;
+      }
+
+      .service-card {
+        padding: 2.5rem 1.5rem;
+      }
+
+      .calculator-box h3 {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: clamp(1.8rem, 7vw, 2.5rem);
+      }
+
+      .section-title {
+        font-size: clamp(1.5rem, 5.5vw, 2rem);
+      }
+
+      .team-title {
+        font-size: clamp(1.5rem, 6vw, 2rem);
+      }
+
+      .hero-left {
+        padding: 4rem 1rem;
+      }
+
+      .hero-right {
+        padding: 3rem 1rem;
+        border-radius: 80px 80px 15px 15px;
+      }
+
+      .services, .booking {
+        padding: 3.5rem 1rem;
+      }
+
+      .team {
+        padding: 3.5rem 1rem;
+      }
+
+      .hero-btns {
+        flex-direction: column;
+      }
+
+      .btn-rose, .btn-outline-rose {
+        width: 100%;
+        text-align: center;
+      }
+
+      .service-card {
+        border-radius: 60px 60px 15px 15px;
+      }
+
+      .booking-card {
+        border-radius: 60px 60px 15px 15px;
+        padding: 2.5rem 1rem;
+      }
+
+      nav {
+        padding: 1rem;
+      }
+
+      footer {
+        padding: 2rem 1rem;
+      }
+
+      .calculator-box {
+        padding: 1.5rem 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <div class="nav-left">
+      <a href="index.html" class="back-link"><span>←</span> <span data-i18n="backToPortfolio">Back to
+          Portfolio</span></a>
+      <div class="logo">De<span>lor</span></div>
+    </div>
+    <ul>
+      <li><a href="#services" data-i18n="navServices">Services</a></li>
+      <li><a href="#team" data-i18n="navTeam">Team</a></li>
+      <li><a href="#booking" data-i18n="navBook">Book</a></li>
+      <li><a href="#booking" class="nav-book" data-i18n="navBookNow">Book Now</a></li>
+    </ul>
+    <div class="nav-right">
+      <button id="lang-switch" class="lang-switch">العربية</button>
+      <button id="menu-toggle" class="menu-toggle" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer" id="mobile-menu-drawer">
+    <ul>
+      <li><a href="#services" data-i18n="navServices">Services</a></li>
+      <li><a href="#team" data-i18n="navTeam">Team</a></li>
+      <li><a href="#booking" data-i18n="navBook">Book</a></li>
+      <li><a href="#booking" data-i18n="navBookNow">Book Now</a></li>
+    </ul>
+  </div>
+
+  <section class="hero reveal visible">
+    <div class="hero-left">
+      <p class="hero-tag" data-i18n="heroTag">Beauty Salon · Gardenia City Mall · Nasr City</p>
+      <h1 data-i18n="heroTitle">Beauty in<br>every <em>detail</em></h1>
+      <p class="hero-sub" data-i18n="heroSub">A sanctuary for hair, nails, and skin in the heart of Gardenia City.
+        Expert stylists, personalized care, and an atmosphere designed to make you feel extraordinary.</p>
+      <div class="hero-btns">
+        <button class="btn-rose scroll-to-booking" data-i18n="btnBook">Book Appointment</button>
+        <button class="btn-ghost scroll-to-services" data-i18n="btnServices">Our Services</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-right-top">
+        <div class="hero-pill" data-i18n="trustBadge">Trusted by Gardenia residents</div>
+        <p class="hero-quote" data-i18n="heroQuote">"Amazing service — Aly is truly exceptional, and Sahar's hair
+          coloring is on another level."</p>
+      </div>
+      <div class="hero-services-preview">
+        <div class="hsp-item"><span class="hsp-name" data-i18n="hsp1">Blowout & Styling</span><span class="hsp-price"
+            id="price-hsp1">From EGP 150</span></div>
+        <div class="hsp-item"><span class="hsp-name" data-i18n="hsp2">Gel Manicure</span><span class="hsp-price"
+            id="price-hsp2">From EGP 200</span></div>
+        <div class="hsp-item"><span class="hsp-name" data-i18n="hsp3">Hair Coloring</span><span class="hsp-price"
+            id="price-hsp3">From EGP 350</span></div>
+        <div class="hsp-item"><span class="hsp-name" data-i18n="hsp4">Protein Treatment</span><span class="hsp-price"
+            id="price-hsp4">From EGP 450</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="services reveal">
+    <p class="section-tag" data-i18n="servicesTag">What we offer</p>
+    <h2 class="section-title" data-i18n="servicesTitle">Every service,<br><em>perfectly</em> done</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="sc-icon">✂️</div>
+        <div class="sc-tagline" data-i18n="sc1Tag">Hair</div>
+        <div class="sc-name" data-i18n="sc1Name">Hair Studio</div>
+        <div class="sc-desc" data-i18n="sc1Desc">Cut, color, treatment, blowout. Expert stylists who listen and deliver
+          the look you want.</div>
+        <ul class="sc-items">
+          <li data-i18n="sc1I1">Precision cuts for all hair types</li>
+          <li data-i18n="sc1I2">Color, highlights & balayage</li>
+          <li data-i18n="sc1I3">Protein & keratin treatments</li>
+          <li data-i18n="sc1I4">Blowouts & styling</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="sc-icon">💅</div>
+        <div class="sc-tagline" data-i18n="sc2Tag">Nails</div>
+        <div class="sc-name" data-i18n="sc2Name">Nail Lounge</div>
+        <div class="sc-desc" data-i18n="sc2Desc">Manicures and pedicures with proper preparation, quality products, and
+          lasting results.</div>
+        <ul class="sc-items">
+          <li data-i18n="sc2I1">Gel manicure & pedicure</li>
+          <li data-i18n="sc2I2">Hard gel extensions</li>
+          <li data-i18n="sc2I3">Nail art & designs</li>
+          <li data-i18n="sc2I4">Spa manicure treatments</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="sc-icon">✨</div>
+        <div class="sc-tagline" data-i18n="sc3Tag">Skin</div>
+        <div class="sc-name" data-i18n="sc3Name">Skin & Beauty</div>
+        <div class="sc-desc" data-i18n="sc3Desc">Facials, threading, waxing, and skincare treatments to keep you glowing
+          all year round.</div>
+        <ul class="sc-items">
+          <li data-i18n="sc3I1">Facial cleansing & glow treatments</li>
+          <li data-i18n="sc3I2">Eyebrow threading & tinting</li>
+          <li data-i18n="sc3I3">Full body waxing</li>
+          <li data-i18n="sc3I4">Lash lift & tint</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Service Bundle Price Calculator -->
+    <div class="calculator-box">
+      <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 400;" data-i18n="calcTitle">
+        Service Bundle Price Calculator</h3>
+      <p style="font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem;" data-i18n="calcDesc">Select the services
+        you want to bundle and see the estimated total price.</p>
+      <div class="calculator-grid">
+        <label class="calc-item">
+          <input type="checkbox" class="calc-check" data-price="150" value="blowout">
+          <span class="calc-label" data-i18n="calcOpt1">Blowout & Styling (EGP 150)</span>
+        </label>
+        <label class="calc-item">
+          <input type="checkbox" class="calc-check" data-price="350" value="coloring">
+          <span class="calc-label" data-i18n="calcOpt2">Hair Coloring (EGP 350)</span>
+        </label>
+        <label class="calc-item">
+          <input type="checkbox" class="calc-check" data-price="200" value="manicure">
+          <span class="calc-label" data-i18n="calcOpt3">Gel Manicure (EGP 200)</span>
+        </label>
+        <label class="calc-item">
+          <input type="checkbox" class="calc-check" data-price="450" value="protein">
+          <span class="calc-label" data-i18n="calcOpt4">Protein Treatment (EGP 450)</span>
+        </label>
+        <label class="calc-item">
+          <input type="checkbox" class="calc-check" data-price="250" value="facial">
+          <span class="calc-label" data-i18n="calcOpt5">Facial Cleansing (EGP 250)</span>
+        </label>
+      </div>
+      <div class="calculator-total">
+        <span data-i18n="calcTotal">Estimated Total:</span> <strong id="calc-total-val">EGP 0</strong>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" class="team reveal">
+    <div class="team-header">
+      <div>
+        <p class="section-tag" style="color: var(--taupe);" data-i18n="teamTag">The people behind your look</p>
+        <h2 class="team-title" data-i18n="teamTitle">Meet our <em>stylists</em></h2>
+      </div>
+      <div class="team-intro">
+        <p data-i18n="teamIntro">Our team is the heart of Delor. Each stylist brings their own expertise and passion —
+          always learning, always delivering. We hire for skill and keep our team for character.</p>
+      </div>
+    </div>
+    <div class="team-grid">
+      <div class="team-member">
+        <div class="member-avatar">A</div>
+        <div class="member-name" data-i18n="tm1Name">Aly</div>
+        <div class="member-spec" data-i18n="tm1Spec">Senior Stylist</div>
+        <div class="member-note" data-i18n="tm1Note">Known for exceptional technique and a warm, attentive approach.
+          Highly requested by returning clients.</div>
+      </div>
+      <div class="team-member">
+        <div class="member-avatar">S</div>
+        <div class="member-name" data-i18n="tm2Name">Sahar</div>
+        <div class="member-spec" data-i18n="tm2Spec">Color Specialist</div>
+        <div class="member-note" data-i18n="tm2Note">Expert in hair dyeing and color correction. Her precision and
+          artistry set her apart.</div>
+      </div>
+      <div class="team-member">
+        <div class="member-avatar">N</div>
+        <div class="member-name" data-i18n="tm3Name">Nail Team</div>
+        <div class="member-spec" data-i18n="tm3Spec">Nail Technicians</div>
+        <div class="member-note" data-i18n="tm3Note">Dedicated nail professionals with thorough preparation and
+          attention to hygiene and detail.</div>
+      </div>
+      <div class="team-member">
+        <div class="member-avatar">D</div>
+        <div class="member-name" data-i18n="tm4Name">Skin Team</div>
+        <div class="member-spec" data-i18n="tm4Spec">Beauty Therapists</div>
+        <div class="member-note" data-i18n="tm4Note">Trained in facial treatments, waxing, and lash services. Gentle,
+          thorough, and professional.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking" class="booking reveal">
+    <div class="booking-text">
+      <p class="section-tag" data-i18n="bookTag">Plan your visit</p>
+      <h2 class="section-title" data-i18n="bookTitle">Book your<br><em>moment</em></h2>
+      <p data-i18n="bookDesc">Walk-ins are welcome, but we recommend booking ahead — especially for weekends and hair
+        color appointments. Our team will confirm your slot within the hour.</p>
+      <ul class="contact-list">
+        <li><span class="contact-icon">📞</span><span class="contact-text">+20 10 80828783</span></li>
+        <li><span class="contact-icon">📍</span><span class="contact-text" data-i18n="bookAddress">Gardenia City Mall,
+            Nasr City 4455801</span></li>
+        <li><span class="contact-icon">🕐</span><span class="contact-text" data-i18n="bookHours">Daily: 12:00 PM – 12:00
+            AM</span></li>
+      </ul>
+    </div>
+
+    <div class="booking-card">
+      <div id="booking-form-box">
+        <h3 data-i18n="cardTitle">Reserve your <em>chair</em></h3>
+        <form id="salon-booking-form" class="booking-form">
+          <input type="text" id="form-name" required placeholder="Your Name">
+          <input type="tel" id="form-phone" required placeholder="Phone Number">
+          <select id="form-service" required>
+            <option value="" disabled selected data-i18n="selectServiceOption">Select a service</option>
+            <option value="cut" data-i18n="opt1">Hair Cut & Styling</option>
+            <option value="color" data-i18n="opt2">Hair Coloring</option>
+            <option value="protein" data-i18n="opt3">Protein Treatment</option>
+            <option value="manicure" data-i18n="opt4">Gel Manicure</option>
+            <option value="extensions" data-i18n="opt5">Nail Extensions</option>
+            <option value="facial" data-i18n="opt6">Facial Treatment</option>
+            <option value="package" data-i18n="opt7">Full Package</option>
+          </select>
+          <input type="date" id="form-date" required>
+          <button type="submit" data-i18n="btnSubmit">Request Appointment</button>
+        </form>
+      </div>
+      <div id="booking-success-box" class="success-container hidden">
+        <div class="success-icon">✓</div>
+        <h3 data-i18n="successTitle">Appointment requested</h3>
+        <p id="success-message-text"
+          style="font-size: 0.88rem; color: var(--text); line-height: 1.6; margin-top: 1rem;"></p>
+        <button id="reset-booking-btn"
+          style="margin-top: 1.5rem; background: var(--rose); color: white; padding: 0.8rem 1.8rem; border: none; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px;"
+          data-i18n="btnBack">Back</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Delor Beauty Salon</div>
+    <div class="footer-copy" data-i18n="footerCopy">© 2025 Delor Beauty Salon · Gardenia City Mall, Nasr City, Cairo
+    </div>
+  </footer>
+
+  <script>
+    /* ==============================================================
+       TRANSLATIONS DICTIONARY
+       ============================================================== */
+    const T = {
+      en: {
+        docTitle: "Delor Beauty Salon — Gardenia City Mall",
+        backToPortfolio: "Back to Portfolio",
+        navServices: "Services",
+        navTeam: "Team",
+        navBook: "Book",
+        navBookNow: "Book Now",
+
+        heroTag: "Beauty Salon · Gardenia City Mall · Nasr City",
+        heroTitle: "Beauty in<br>every <em>detail</em>",
+        heroSub: "A sanctuary for hair, nails, and skin in the heart of Gardenia City. Expert stylists, personalized care, and an atmosphere designed to make you feel extraordinary.",
+        btnBook: "Book Appointment",
+        btnServices: "Our Services",
+        trustBadge: "Trusted by Gardenia residents",
+        heroQuote: "\"Amazing service — Aly is truly exceptional, and Sahar's hair coloring is on another level.\"",
+
+        hsp1: "Blowout & Styling",
+        hsp2: "Gel Manicure",
+        hsp3: "Hair Coloring",
+        hsp4: "Protein Treatment",
+        prefixPrice: "From EGP ",
+
+        servicesTag: "What we offer",
+        servicesTitle: "Every service,<br><em>perfectly</em> done",
+        sc1Tag: "Hair",
+        sc1Name: "Hair Studio",
+        sc1Desc: "Cut, color, treatment, blowout. Expert stylists who listen and deliver the look you want.",
+        sc1I1: "Precision cuts for all hair types",
+        sc1I2: "Color, highlights & balayage",
+        sc1I3: "Protein & keratin treatments",
+        sc1I4: "Blowouts & styling",
+
+        sc2Tag: "Nails",
+        sc2Name: "Nail Lounge",
+        sc2Desc: "Manicures and pedicures with proper preparation, quality products, and lasting results.",
+        sc2I1: "Gel manicure & pedicure",
+        sc2I2: "Hard gel extensions",
+        sc2I3: "Nail art & designs",
+        sc2I4: "Spa manicure treatments",
+
+        sc3Tag: "Skin",
+        sc3Name: "Skin & Beauty",
+        sc3Desc: "Facials, threading, waxing, and skincare treatments to keep you glowing all year round.",
+        sc3I1: "Facial cleansing & glow treatments",
+        sc3I2: "Eyebrow threading & tinting",
+        sc3I3: "Full body waxing",
+        sc3I4: "Lash lift & tint",
+
+        calcTitle: "Service Bundle Price Calculator",
+        calcDesc: "Select the services you want to bundle and see the estimated total price.",
+        calcOpt1: "Blowout & Styling (EGP 150)",
+        calcOpt2: "Hair Coloring (EGP 350)",
+        calcOpt3: "Gel Manicure (EGP 200)",
+        calcOpt4: "Protein Treatment (EGP 450)",
+        calcOpt5: "Facial Cleansing (EGP 250)",
+        calcTotal: "Estimated Total:",
+
+        teamTag: "The people behind your look",
+        teamTitle: "Meet our <em>stylists</em>",
+        teamIntro: "Our team is the heart of Delor. Each stylist brings their own expertise and passion — always learning, always delivering. We hire for skill and keep our team for character.",
+
+        tm1Name: "Aly",
+        tm1Spec: "Senior Stylist",
+        tm1Note: "Known for exceptional technique and a warm, attentive approach. Highly requested by returning clients.",
+        tm2Name: "Sahar",
+        tm2Spec: "Color Specialist",
+        tm2Note: "Expert in hair dyeing and color correction. Her precision and artistry set her apart.",
+        tm3Name: "Nail Team",
+        tm3Spec: "Nail Technicians",
+        tm3Note: "Dedicated nail professionals with thorough preparation and attention to hygiene and detail.",
+        tm4Name: "Skin Team",
+        tm4Spec: "Beauty Therapists",
+        tm4Note: "Trained in facial treatments, waxing, and lash services. Gentle, thorough, and professional.",
+
+        bookTag: "Plan your visit",
+        bookTitle: "Book your<br><em>moment</em>",
+        bookDesc: "Walk-ins are welcome, but we recommend booking ahead — especially for weekends and hair color appointments. Our team will confirm your slot within the hour.",
+        bookAddress: "Gardenia City Mall, Nasr City 4455801",
+        bookHours: "Daily: 12:00 PM – 12:00 AM",
+
+        cardTitle: "Reserve your <em>chair</em>",
+        selectServiceOption: "Select a service",
+        opt1: "Hair Cut & Styling",
+        opt2: "Hair Coloring",
+        opt3: "Protein Treatment",
+        opt4: "Gel Manicure",
+        opt5: "Nail Extensions",
+        opt6: "Facial Treatment",
+        opt7: "Full Package",
+        btnSubmit: "Request Appointment",
+
+        successTitle: "Appointment requested",
+        successDesc: "Thank you, {name}! We have reserved your chair. We will contact you at {phone} within the hour to confirm your slot.",
+        btnBack: "Back",
+        footerCopy: "© 2025 Delor Beauty Salon · Gardenia City Mall, Nasr City, Cairo",
+
+        placeholderName: "Your Name",
+        placeholderPhone: "Phone Number"
+      },
+      ar: {
+        docTitle: "صالون ديلور للتجميل — جاردينيا سيتي مول",
+        backToPortfolio: "العودة للمعرض",
+        navServices: "الخدمات",
+        navTeam: "الفريق",
+        navBook: "الحجز",
+        navBookNow: "احجز الآن",
+
+        heroTag: "صالون تجميل · جاردينيا سيتي مول · مدينة نصر",
+        heroTitle: "الجمال يكمن في<br>كل <em>تفصيل</em>",
+        heroSub: "ملاذ متكامل للعناية بالشعر والأظافر والبشرة في قلب جاردينيا سيتي. مصففون خبراء، رعاية شخصية مميزة، وأجواء صممت لتمنحك شعوراً استثنائياً راقياً.",
+        btnBook: "حجز موعد",
+        btnServices: "خدماتنا",
+        trustBadge: "موثوق لدى سكان جاردينيا سيتي",
+        heroQuote: "\"خدمة مذهلة — علي مبدع حقاً، وتلوين شعر سحر رائع وفي مستوى آخر تماماً.\"",
+
+        hsp1: "سشوار وتسريح شعر",
+        hsp2: "مانيكير وباديكير جل",
+        hsp3: "صبغة وتلوين شعر",
+        hsp4: "علاج بالبروتين",
+        prefixPrice: "تبدأ من ",
+
+        servicesTag: "ما نقدمه",
+        servicesTitle: "كل خدمة،<br>نؤديها <em>بمثالية</em>",
+        sc1Tag: "الشعر",
+        sc1Name: "استوديو الشعر",
+        sc1Desc: "قص، تلوين، معالجة، وسشوار. خبراء شعر يستمعون لمتطلباتك بدقة ويمنحونك المظهر الذي تطمحين إليه.",
+        sc1I1: "قصات دقيقة ومناسبة لكل أنواع الشعر",
+        sc1I2: "صبغة كاملة، خصلات شعر وبالياج",
+        sc1I3: "علاجات عميقة بالكيراتين والبروتين",
+        sc1I4: "سشوار وتسريحات شعر للمناسبات",
+
+        sc2Tag: "الأظافر",
+        sc2Name: "صالون الأظافر",
+        sc2Desc: "العناية الكاملة بالأظافر مع تحضير دقيق واستخدام منتجات فاخرة لنتائج تدوم طويلاً ونظافة تامة.",
+        sc2I1: "مانيكير وباديكير جل متكامل",
+        sc2I2: "تركيب أظافر هارد جل احترافي",
+        sc2I3: "فن ورسومات ونقوش الأظافر الحديثة",
+        sc2I4: "جلسات سبا ومساج لليدين والأقدام",
+
+        sc3Tag: "البشرة",
+        sc3Name: "جلسات البشرة والجمال",
+        sc3Desc: "تنظيف الوجه، تهذيب الحواجب بالخيط، إزالة الشعر بالشمع، وعلاجات نضرة تمنحك إشراقة طوال العام.",
+        sc3I1: "تنظيف عميق وعلاجات نظارة البشرة",
+        sc3I2: "تهذيب ورسم الحواجب بالخيط والصبغ",
+        sc3I3: "إزالة شعر الجسم بالكامل بالشمع الطبيعي",
+        sc3I4: "رفع وتلوين الرموش لرموش طبيعية رائعة",
+
+        calcTitle: "حاسبة أسعار الباقات المشتركة",
+        calcDesc: "حددي الخدمات التي ترغبين في دمجها لمعرفة السعر الإجمالي التقديري للباقة.",
+        calcOpt1: "سشوار وتسريح شعر (١٥٠ ج.م)",
+        calcOpt2: "صبغة وتلوين شعر (٣٥٠ ج.م)",
+        calcOpt3: "مانيكير وباديكير جل (٢٠٠ ج.م)",
+        calcOpt4: "علاج بالبروتين للشعر (٤٥٠ ج.م)",
+        calcOpt5: "تنظيف وعلاج بشرة (٢٥٠ ج.م)",
+        calcTotal: "الإجمالي التقديري:",
+
+        teamTag: "فريق المبدعين",
+        teamTitle: "تعرفي على <em>خبيراتنا</em>",
+        teamIntro: "فريقنا هو قلب ديلور النابض. كل خبيرة تقدم خبرتها وشغفها الخاص — تعلّم مستمر وعمل متقن. نوظف بناءً على المهارة ونبقي الموظف لتميز خلقه وخدمته الراقية.",
+
+        tm1Name: "علي",
+        tm1Spec: "كبير مصففي الشعر",
+        tm1Note: "معروف بتقنياته الدقيقة وقصه الممتاز وأسلوبه الهادئ والمنتبه لطلبات العميلات. عليه طلب عالٍ.",
+        tm2Name: "سحر",
+        tm2Spec: "أخصائية الصبغة والتلوين",
+        tm2Note: "خبيرة في خلط الألوان، صبغ الشعر وتصحيح درجات الألوان بدقة فنية ولمسة فريدة تميزها.",
+        tm3Name: "فريق الأظافر",
+        tm3Spec: "أخصائيات أظافر",
+        tm3Note: "مجموعة من الفنيات المحترفات في العناية الدقيقة والباديكير مع التزام كامل بالتعقيم والتنظيف التام.",
+        tm4Name: "فريق البشرة",
+        tm4Spec: "أخصائيات تجميل وبشرة",
+        tm4Note: "مدربات على علاجات وتقشير البشرة، إزالة الشعر وخدمات الرموش بلطف وعناية واحترافية.",
+
+        bookTag: "خططي لزيارتك",
+        bookTitle: "احجزي<br><em>جلستك الخاصة</em>",
+        bookDesc: "نرحب بزيارتك في أي وقت، ولكننا ننصح بشدة بالحجز المسبق — خصوصاً في نهاية الأسبوع وجلسات صبغ الشعر. سيتصل بك فريقنا لتأكيد الموعد خلال ساعة.",
+        bookAddress: "جاردينيا سيتي مول، مدينة نصر ٤٤٥٥٨٠١",
+        bookHours: "يومياً: ١٢:٠٠ ظهراً – ١٢:٠٠ منتصف الليل",
+
+        cardTitle: "احجزي <em>مقعدكِ</em>",
+        selectServiceOption: "اختاري الخدمة المطلوبة",
+        opt1: "قص وتصفيف الشعر",
+        opt2: "صبغة وتلوين الشعر",
+        opt3: "علاج الشعر بالبروتين",
+        opt4: "مانيكير جل",
+        opt5: "تركيب وصلات أظافر",
+        opt6: "جلسة تنظيف وعلاج بشرة",
+        opt7: "الباقة الكاملة للمناسبات",
+        btnSubmit: "إرسال طلب الحجز",
+
+        successTitle: "تم استلام طلب الحجز",
+        successDesc: "شكراً لكِ، {name}! لقد قمنا بطلب حجز مقعدكِ. سنتصل بكِ على الرقم {phone} خلال ساعة واحدة لتأكيد الحجز وموعد حضوركِ.",
+        btnBack: "العودة",
+        footerCopy: "© ٢٠٢٥ صالون ديلور للتجميل · جاردينيا سيتي مول، مدينة نصر، القاهرة",
+
+        placeholderName: "الاسم الكريم",
+        placeholderPhone: "رقم الهاتف"
+      }
+    };
+
+    let lang = "en";
+
+    function setLang(l) {
+      lang = l;
+      const html = document.documentElement;
+      html.setAttribute("lang", l);
+      html.setAttribute("dir", l === "ar" ? "rtl" : "ltr");
+
+      // Toggle button label
+      document.getElementById("lang-switch").textContent = l === "en" ? "العربية" : "English";
+
+      // Text translations
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (T[l][key]) {
+          el.innerHTML = T[l][key];
+        }
+      });
+
+      // Form placeholders
+      const nameInput = document.getElementById("form-name");
+      const phoneInput = document.getElementById("form-phone");
+      if (nameInput) nameInput.placeholder = T[l].placeholderName;
+      if (phoneInput) phoneInput.placeholder = T[l].placeholderPhone;
+
+      // Refresh prices
+      updatePricesDisplay();
+
+      // Recalculate estimated sum to refresh currency formatting
+      calculateTotal();
+
+      // Save language preference
+      try { localStorage.setItem("lang", l); } catch (e) { }
+    }
+
+    function updatePricesDisplay() {
+      const prices = [150, 200, 350, 450];
+      const ids = ['hsp1', 'hsp2', 'hsp3', 'hsp4'];
+      ids.forEach((id, index) => {
+        const el = document.getElementById("price-" + id);
+        if (el) {
+          let numStr = prices[index].toString();
+          if (lang === "ar") {
+            const arDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+            numStr = numStr.replace(/[0-9]/g, w => arDigits[+w]);
+            el.textContent = T[lang].prefixPrice + numStr + " ج.م";
+          } else {
+            el.textContent = T[lang].prefixPrice + numStr;
+          }
+        }
+      });
+    }
+
+    /* ==============================================================
+       LANGUAGE TOGGLE INITIALIZATION
+       ============================================================== */
+    document.getElementById("lang-switch").addEventListener("click", () => {
+      setLang(lang === "en" ? "ar" : "en");
+    });
+
+    // Check saved language on load is moved to the end of the script to prevent ReferenceError before variable initialization.
+
+    /* ==============================================================
+       MOBILE DRAWER NAVIGATION
+       ============================================================== */
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenuDrawer = document.getElementById("mobile-menu-drawer");
+
+    menuToggle.addEventListener("click", () => {
+      menuToggle.classList.toggle("active");
+      mobileMenuDrawer.classList.toggle("active");
+    });
+
+    mobileMenuDrawer.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        menuToggle.classList.remove("active");
+        mobileMenuDrawer.classList.remove("active");
+      });
+    });
+
+    /* ==============================================================
+       ESTIMATED BUNDLE CALCULATOR
+       ============================================================== */
+    const checkboxes = document.querySelectorAll(".calc-check");
+    const totalValEl = document.getElementById("calc-total-val");
+
+    function calculateTotal() {
+      let sum = 0;
+      checkboxes.forEach(cb => {
+        if (cb.checked) {
+          sum += parseInt(cb.getAttribute("data-price"));
+        }
+      });
+      const currency = lang === "ar" ? " ج.م" : " EGP";
+      let sumStr = sum.toString();
+      if (lang === "ar") {
+        const arDigits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+        sumStr = sumStr.replace(/[0-9]/g, w => arDigits[+w]);
+        totalValEl.textContent = sumStr + currency;
+      } else {
+        totalValEl.textContent = currency + " " + sumStr;
+      }
+    }
+
+    checkboxes.forEach(cb => {
+      cb.addEventListener("change", calculateTotal);
+    });
+
+    /* ==============================================================
+       SMOOTH SCROLL UTILS
+       ============================================================== */
+    const scrollBook = document.querySelector(".scroll-to-booking");
+    if (scrollBook) {
+      scrollBook.addEventListener("click", () => {
+        document.getElementById("booking").scrollIntoView({ behavior: "smooth" });
+      });
+    }
+    const scrollServices = document.querySelector(".scroll-to-services");
+    if (scrollServices) {
+      scrollServices.addEventListener("click", () => {
+        document.getElementById("services").scrollIntoView({ behavior: "smooth" });
+      });
+    }
+
+    /* ==============================================================
+       SCROLL REVEAL OBSERVER
+       ============================================================== */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+
+    document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+    /* Fallback: ensure all sections are visible after 800ms or if IO unsupported */
+    if (!window.IntersectionObserver) {
+      document.querySelectorAll(".reveal").forEach(el => el.classList.add("visible"));
+    } else {
+      setTimeout(() => {
+        document.querySelectorAll(".reveal").forEach(el => {
+          if (!el.classList.contains("visible")) {
+            el.classList.add("visible");
+          }
+        });
+      }, 800);
+    }
+
+    /* ==============================================================
+       LIVE BOOKING FORM RESPONSE
+       ============================================================== */
+    const bookingForm = document.getElementById("salon-booking-form");
+    const successBox = document.getElementById("booking-success-box");
+    const formBox = document.getElementById("booking-form-box");
+    const successText = document.getElementById("success-message-text");
+    const resetBtn = document.getElementById("reset-booking-btn");
+
+    bookingForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const nameVal = document.getElementById("form-name").value;
+      const phoneVal = document.getElementById("form-phone").value;
+
+      let msg = T[lang].successDesc;
+      msg = msg.replace("{name}", nameVal).replace("{phone}", phoneVal);
+
+      successText.textContent = msg;
+      formBox.classList.add("hidden");
+      successBox.classList.remove("hidden");
+    });
+
+    resetBtn.addEventListener("click", () => {
+      bookingForm.reset();
+      successBox.classList.add("hidden");
+      formBox.classList.remove("hidden");
+    });
+
+    // Check saved language on load (moved here to avoid ReferenceError on load)
+    try {
+      const savedLang = localStorage.getItem("lang");
+      if (savedLang === "ar" || savedLang === "en") {
+        setLang(savedLang);
+      } else {
+        setLang("en");
+      }
+    } catch (e) {
+      setLang("en");
+    }
+  </script>
+</body>
+
+</html>
